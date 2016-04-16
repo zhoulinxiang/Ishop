@@ -1,0 +1,128 @@
+<div class="bg-light">
+    <div class="wrap1190 top bg-f5">
+    <% if ( logined ) { %>
+        <div class="btn-group">
+            <!-- username -->
+            <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-user"></i>
+                <%=userInfo.username%>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu col-md-2">
+                <li><a href="/user/manage/profile" class="btn">Profile</a></li>
+                <li><a href="/user/logout" class="btn logout"><i class="fa fa-sign-out"></i>Logout</a></li>
+            </ul>
+        </div>
+        <!-- message -->
+        <!-- <div class="btn-group">
+            <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-envelope"></i>
+                Message <span class="badge">3</span>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#">new message 1</a></li>
+                <li><a href="#">new message 2</a></li>
+                <li><a href="#">new message 3</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" class="btn">More..</a></li>
+                <li><a href="#" class="btn">Mark</a></li>
+            </ul>
+        </div> -->
+    <% } else { %>
+        <!-- Sign in / up -->
+        <div class="btn-group">
+            <a class="btn btn-top" type="button" href="/user/login">
+                <i class="fa fa-sign-in"></i>
+                Sign In
+            </a>
+        </div>
+        /
+        <div class="btn-group">
+            <a class="btn btn-top red" type="button" href="/user/login#register">
+                Sign Up
+            </a>
+        </div>
+    <% } %>
+
+        <!-- cart -->
+        <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-shopping-cart"></i>
+                Cart
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu cart">
+                <li><a href="/user/manage/cart">Go to my cart</a></li>
+            </ul>
+        </div>
+        <!-- mine -->
+        <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-gear"></i>
+                Mine
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/user/manage/order">My Order</a></li>
+                <li><a href="/user/manage/profile">My Profile</a></li>
+                <li><a href="/user/manage/comment">My Comments</a></li>
+            </ul>
+        </div>
+        <!-- home-->
+        <div class="btn-group pull-right">
+            <a class="btn" type="button" href="/">
+                <i class="fa fa-home"></i>
+                Home
+            </a>
+        </div>
+    </div>
+</div>
+<header class="nav bg-default">
+    <div class="wrap1190">
+        <div class="logo col-md-2 pull-left">
+            <a href="/"><img src="/stylesheets/front/image/logo.jpg" /></a>
+        </div>
+        <!--<div class="nav pull-left">-->
+            <!--<ul>-->
+                <!--<% for (var i = 0; i < category.length; i++) { %>-->
+                        <!--<li><a href="<%=category[i].url%>"><%=category[i].name%></a></li>-->
+                <!--<% } %>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div class="search pull-right">
+            <form class="form form-inline" action="/search" type="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="search..." style="width: 250px;" />
+                    <span class="input-group-btn"><button class="btn btn-default" type="submit">Search</button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+
+<script>
+    $( function () {
+
+        // Dropdown-auto-expand-collapse
+        $("a[data-toggle='dropdown']", "div.top, div.nav").mouseenter( function () {
+            $( this ).siblings( 'ul' ).dropdown('toggle');
+        }).mouseleave( function () {
+            var a = this;
+            $( this ).siblings( 'ul' ).mouseleave( function () {
+                $( this ).dropdown('toggle');
+                var ul = this;
+                $( a ).mouseleave( function () {
+                    $( ul ).dropdown('toggle');
+                });
+            });
+        });
+
+        // resolve dropdown anchor disabled
+        $( "ul.dropdown-menu li a", "div.top" ).click( function () {
+            window.location = $( this ).attr( 'href' );
+        });
+
+
+    });
+</script>

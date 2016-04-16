@@ -1,0 +1,211 @@
+<div class="container" ng-controller="orderManage">
+    <% include public/modal %>
+    <div class="col-xs-12">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <form class="form-inline" name="filterForm">
+                    <div class="form-group keywords">
+                        <label for="">Keywords:</label>
+                        <input type="text" class="form-control input-sm" name="keywords" ng-model="filterData.keywords" placeholder="keywords.."/>
+                    </div>
+                    <div class="form-group price">
+                        <label for="">State:</label>
+                        <select class="form-control" ng-model="filterData.state">
+                            <option value="">Select State</option>
+                            <option value="submit">Submit</option>
+                            <option value="pay">Pay</option>
+                            <option value="shipping">Shipping</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date:</label>
+                        <div class="input-group input-daterange">
+                            <input type="text" class="form-control" name="startDate" ng-model="filterData.startDate" style="width:100px;"/>
+                            <span class="input-group-addon">to</span>
+                            <input type="text" class="form-control" name="endDate" ng-model="filterData.endDate" style="width:100px;"/>
+                        </div>
+                    </div>
+                    <a class="btn btn-default btn-sm" ng-click="load()">Go!</a>
+                </form>
+            </div>
+        </div>
+        <div class="orders">
+            <div class="panel" ng-repeat="orderItem in data" ng-class="{ 'done': 'panel-success', 'pay': 'panel-info', 'submit': 'panel-default', 'shipping': 'panel-warning', 'received': 'panel-success' }[orderItem.state]">
+                <div class="panel-heading" style="height:40px;">
+                    <div class="col-xs-4">
+                        <span>[{{orderItem.created | date: 'MM/dd/yyyy'}}] Order: {{orderItem._id}}</span>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="pull-right {{orderItem._id}}" href="#" data-toggle="popover"><i class="fa fa-fw fa-caret-left"></i> State: {{orderItem.state}}</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Name</th>
+                                <th>Unit-price</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr class="datalist" ng-repeat="item in orderItem.products">
+                                <td class="col-sm-6"><img src="/{{item.img[0]}}" style="width: 60px;height:60px;margin-right:10px;"/><a href="/product/{{item._id}}">{{item.name}}</a></td>
+                                <td class="col-sm-3" style="vertical-align:middle;">{{item.price | currency: '￥'}}</td>
+                                <td class="col-sm-3" style="vertical-align:middle;">{{item.count}}</td>
+                            </tr>
+                            <tr>
+                                <td>Address: {{orderItem.address}}</td>
+                                <td>Receiver: {{orderItem.name}}</td>
+                                <td>Phone: {{orderItem.phone}}</td>
+                            </tr>
+                            <tr>
+                                <td><h4 class="text-danger">Total: {{orderItem.total | currency: '￥'}}</h4></td>
+                                <td></td>
+                                <td colspan="1" ng-switch="orderItem.state">
+                                    <h4 class="text-info" ng-switch-when="NoConfirm"></h4>
+                                    <h4 class="text-info" ng-switch-when="confirm"></h4>
+                                    <h4 class="text-info" ng-switch-when="pay"><button type="button" class="btn btn-primary" ng-click="shipping(orderItem._id)">Shipping</button></h4>
+                                    <h4 class="text-info" ng-switch-when="shipping"></h4>
+                                    <h4 class="text-info" ng-switch-when="received"></h4>
+                                    <h4 class="text-info" ng-switch-when="return"><button type="button" class="btn btn-primary" ng-click="confirmReturn(orderItem._id)">ConfirmReturn</button></h4>
+                                    <h4 class="text-info" ng-switch-when="confirmReturn"><button type="button" class="btn btn-primary" ng-click="returnDone(orderItem._id)">ReturnDone</button></h4>
+                                    <h4 class="text-info" ng-switch-when="returnDone"></h4>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <% include ./public/pagination %>
+            </div>
+        </div>
+    </div>
+</div><!-- div.container END -->
+
+<script>
+
+    $(function () {
+        $("div.input-daterange input").each(function () {
+            $(this).datepicker({format: 'mm/dd/yyyy'});
+        });
+    });
+
+    App.controller("orderManage", function ($scope, $http) {
+        var url = '/admin/api/v1/order';
+        var nState = 5,
+                stateMap = {
+                    'submit': 1,
+                    'pay': 2,
+                    'shipping': 3,
+                    'confirm': 4,
+                    'done': 5
+                };
+
+        initPage($scope, $http, url, true, loadProducts);
+        $scope.load = function () {
+            loadData($scope, $http, url, loadProducts);
+        };
+
+        function loadProducts(result) {
+            console.log("$scope.data:");
+            console.log($scope.data);
+            if (typeof result === 'object') {
+                for (var i = 0; i < $scope.data.length; i++) {
+
+                    for (var j = 0; j < $scope.data[i].products.length; j++) {
+                        var product = $scope.data[i].products[j];
+                        (function (i, j) {
+                            $http.get('/api/v1/product/' + product.product_id).success(function (result) {
+                                if (typeof result === 'object') {
+                                    $.extend($scope.data[i].products[j], result);
+
+                                    // status popover
+
+                                    switch($scope.data[i].state){
+                                        case -1:
+                                            $scope.data[i].state='NoConfirm';
+                                            break;
+                                        case 0:
+                                            $scope.data[i].state='confirm';
+                                            break;
+                                        case 1:
+                                            $scope.data[i].state='pay';
+                                            break;
+                                        case 2:
+                                            $scope.data[i].state='shipping';
+                                            break;
+                                        case 3:
+                                            $scope.data[i].state='received';
+                                            break;
+                                        case 4:
+                                            $scope.data[i].state='return';
+                                            break;
+                                        case 5:
+                                            $scope.data[i].state='confirmReturn';
+                                            break;
+                                        case 6:
+                                            $scope.data[i].state='returnDone';
+                                            break;
+                                    }
+                                    // status popover
+                                    var order = $scope.data[i],
+                                            state = order.state,
+                                            html = '';
+                                    function format(date) {
+                                        return new Date(date).toString().substring(4, 24);
+                                    }
+                                    if (order.created) {
+                                        html += '<p>Submit Date: </p><p>' + format(order.created) + '</p>';
+                                    }
+
+                                    $("a." + order._id).popover({
+                                        trigger: 'hover',
+                                        title: 'Progress Date',
+                                        content: html,
+                                        html: 'true',
+                                        placement: 'left'
+                                    });
+                                } else {
+                                    showErrorInfo('get product(' + $scope.data[i].products[j]._id + ') error');
+                                }
+                            });
+                        })(i, j);
+                    } // for-products
+                } // for-data
+
+            }
+        };
+        $scope.shipping=function(orderId){
+            console.log(orderId);
+            angularHttp($http, true,'POST', '/api/v1/order/'+orderId+'/shipping',{}, function (data) {
+                if (data === 'success') {
+                    console.log('success');
+                }
+            });
+            window.location = "/admin/manage/order";
+        };
+        $scope.confirmReturn=function(orderId){
+            console.log(orderId);
+            angularHttp($http, true,'POST', '/api/v1/order/'+orderId+'/confirmreturn',{}, function (data) {
+                if (data === 'success') {
+                    console.log('success');
+                }
+            });
+            window.location = "/admin/manage/order";
+        };
+        $scope.returnDone=function(orderId){
+            console.log(orderId);
+            angularHttp($http, true,'POST', '/api/v1/order/'+orderId+'/returndone',{}, function (data) {
+                if (data === 'success') {
+                    console.log('success');
+                }
+            });
+            window.location = "/admin/manage/order";
+        }
+
+    });
+
+</script>

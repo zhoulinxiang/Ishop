@@ -1,0 +1,324 @@
+<div class="container" ng-controller="MyProfile">
+    <div class="col-xs-2">
+        <% include sidebar.ejs %>
+    </div>
+    <div class="col-xs-10">
+        <legend><%=title%></legend>
+        <div class="profile">
+            <ul class="nav nav-tabs" role=tablist>
+                <li role="presentation" class="active"><a href="#profile" aria-control="profile" role="tab" data-toggle="tab">Profile</a></li>
+                <li role="presentation" class=""><a href="#password" aria-control="password" role="tab" data-toggle="tab">Change Password</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="profile">
+                    <form class="form form-horizontal" name="profileForm" ng-submit="processProfileForm(profileForm.$valid)" novalidate>
+                        <div class="alert alert-success alert-dismissible hide" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Success!</strong> Your profile saved.
+                        </div>
+                        <div class="alert alert-danger alert-dismissible hide" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Error!</strong> <span class="text">Save failed.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Name: </label>
+                            <div class="input-group col-sm-6">
+                                <input name="name" type="text" class="form-control" ng-model="profileData.name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Phone: </label>
+                            <div class="input-group col-sm-6">
+                                <input name="phone" type="text" class="form-control" ng-model="profileData.phone" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Address:</label>
+                            <div class=" input-group col-sm-6">
+                                <textarea name="address" ng-model="profileData.address" ng-minlength="0" ng-maxlength="30" id="" cols="30" rows="2" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label col-sm-2">Logo: </label>-->
+                            <!--<div class="fileinput fileinput-new col-sm-4" data-provides="fileinput">-->
+                                <!--<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">-->
+                                    <!--<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTkwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9Ijk1IiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE5MHgxNDA8L3RleHQ+PC9zdmc+" alt="Your Shop Logo (<5KB)">-->
+                                <!--</div>-->
+                                <!--<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>-->
+                                <!--<div>-->
+                                    <!--<span class="btn btn-default btn-file">-->
+                                        <!--<span class="fileinput-new">Select Logo</span>-->
+                                        <!--<span class="fileinput-exists">Change</span>-->
+                                        <!--<input type="file" />-->
+                                   <!--</span>-->
+                                    <!--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="uploaded">-->
+                                <!--<label for="" class="col-sm-2 control-label">Uploaded Logo: </label><br/>-->
+                                <!--<div class="col-sm-4"><img src=""></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <hr/>
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </form>
+                </div><!-- End profile-tab -->
+                <div role="tabpanel" class="tab-pane" id="password">
+                    <form class="form form-horizontal" name="passwordForm" ng-submit="processPwdForm(passwordForm.$valid)">
+                        <div class="alert alert-success alert-dismissible hide" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Success!</strong> Your password have changed.
+                        </div>
+                        <div class="alert alert-danger alert-dismissible hide" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Error!</strong> <span class="text">Change password failed.</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Password: </label>
+                            <div class="input-group col-sm-6">
+                                <input type="password" name="originalPwd" class="form-control" ng-model="profileData.password" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Old Password: </label>
+                            <div class="input-group col-sm-6">
+                                <input type="password" name="oldPwd" class="form-control" ng-minlength="4" ng-maxlength="18" ng-model="passwordData.oldPwd" placeholder="Please enter your old passwod"/>
+                                <label for="inputError" class="control-label text-danger" ng-show="passwordForm.oldPwd.$invalid && !passwordForm.oldPwd.$pristine"><i class="fa fa-times-circle-o"></i> 4-18 letters or numbers</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">New Password: </label>
+                            <div class="input-group col-sm-6">
+                                <input type="password" name="newPwd" id="input-newPwd" class="form-control" ng-minlength="4" ng-maxlength="18" ng-model="passwordData.newPwd"/>
+                                <label for="inputError" class="control-label text-danger" ng-show="passwordForm.newPwd.$invalid && !passwordForm.newPwd.$pristine"><i class="fa fa-times-circle-o"></i> 4-18 letters or numbers</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Confirm New Password: </label>
+                            <div class="input-group col-sm-6">
+                                <input type="password" name="confirmNewPwd" pw-check="input-newPwd" class="form-control" ng-minlength="4" ng-maxlength="18" ng-model="passwordData.confirmNewPwd"/>
+                                <label for="inputError" class="control-label text-danger" ng-show="passwordForm.confirmNewPwd.$invalid && !passwordForm.confirmNewPwd.$pristine"><i class="fa fa-times-circle-o"></i> Twice password is not same.</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <hr/>
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary" type="submit" ng-disabled="passwordForm.$invalid">Change</button>
+                        </div>
+                    </form>
+                </div><!-- End password-tab -->
+                <!--<div role="tabpanel" class="tab-pane" id="address">-->
+                    <!--<form class="form form-horizontal" name="profileForm" ng-submit="processProfileForm(profileForm.$valid)" novalidate>-->
+                        <!--<div class="alert alert-success alert-dismissible hide" role="alert">-->
+                            <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                            <!--<strong>Success!</strong> Your profile saved.-->
+                        <!--</div>-->
+                        <!--<div class="alert alert-danger alert-dismissible hide" role="alert">-->
+                            <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                            <!--<strong>Error!</strong> <span class="text">Save failed.</span>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label col-sm-4">Address</label>-->
+                            <!--<div class="col-sm-6">-->
+                                <!--<textarea name="address" ng-model="formData.address" ng-minlength="0" ng-maxlength="30" id="" cols="30" rows="2" class="form-control"></textarea>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group text-center">-->
+                            <!--<button class="btn btn-primary" type="submit">Save</button>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>&lt;!&ndash; End message-tab &ndash;&gt;-->
+            </div><!-- End div.tab-content -->
+        </div><!-- End div.tab -->
+        <!--模态窗口-->
+        <div class="modal fade" id="addressModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">New Address</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" class="form-horizontal" name="addrForm" ng-submit="processAddrForm(addrForm.$valid)" novalidate>
+                            <div class="alert alert-danger alert-dismissible text-center hide" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Error!</strong> <span class="text">Some fields are invalid.</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4"><span class="text-danger">*</span> Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="name" ng-model="addrFormData.name" ng-minlength="2" ng-maxlength="30" placeholder="2-30 letters" required/>
+                                    <label for="inputError" class="control-label text-danger" ng-show="addrForm.name.$invalid && !addrForm.name.$pristine"><i class="fa fa-times-circle-o"></i> 2-30 letters</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4"><span class="text-danger">*</span> Address</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="address" ng-minlength="4" ng-maxlength="100" ng-model="addrFormData.address" placeholder="4-100 letters" required/>
+                                    <label for="inputError" class="control-label text-danger" ng-show="addrForm.address.$invalid && !addrForm.address.$pristine"><i class="fa fa-times-circle-o"></i>4-100 letters</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4"><span class="text-danger">*</span> Postcode</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="postcode" ng-minlength="6" ng-maxlength="6" ng-pattern="/[0-9]+/i" ng-model="addrFormData.postcode" placeholder="postcode(6)" required/>
+                                    <label for="inputError" class="control-label text-danger" ng-show="addrForm.postcode.$invalid && !addrForm.postcode.$pristine"><i class="fa fa-times-circle-o"></i> It's not a postcode.</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4"><span class="text-danger">*</span> Telephone</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="phoneNum" ng-minlength="7" ng-maxlength="13" ng-pattern="/[0-9]+/i" ng-model="addrFormData.phoneNum" placeholder="phone number(7-13)" required/>
+                                    <label for="inputError" class="control-label text-danger" ng-show="addrForm.phoneNum.$invalid && !addrForm.phoneNum.$pristine"><i class="fa fa-times-circle-o"></i> It's not a phone number.</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4"> isDefault</label>
+                                <div class="col-sm-6" style="padding-top:7px;">
+                                    <label>
+                                        <input type="checkbox" name="isDefault" ng-model="addrFormData.isDefault"/> set as Default Address
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" ng-disabled="addrForm.$invalid">Submit</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div><!-- /.modal-body -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <% include ../public/modal %>
+    </div>
+</div>
+
+<script>
+
+    App.controller('MyProfile', function ($scope, $http) {
+        var user_id = '<%=userInfo._id%>',
+                url = '/api/v1/user';
+
+        $scope.addrFormData = {};
+        $scope.addrTargetId = '';
+        $scope.passwordData = {};
+
+        $scope.load = function () {
+            $scope.profileData = {};
+            $("#password input").val('');
+
+            $http.get(url + '/' + user_id).success(function (data) {
+                if (typeof data === 'object') {
+                    console.log(data);
+                    $scope.profileData = data;
+//                    $("div.uploaded img").attr("src", data.logo);
+                }
+            });
+        };
+
+        $scope.load();
+
+        $scope.processProfileForm = function (isValid) {
+            if (isValid) {
+                console.log($scope.profileData);
+//                if (!$scope.profileData.logo) {
+//                    $("form[name='profileForm'] div.alert-danger").removeClass('hide');
+//                    return;
+//                }
+                angularHttpPost($http, url, $scope.profileData, function (data) {
+                    if (data === 'success') {
+                        $("form[name='profileForm'] div.alert-success").removeClass('hide');
+                        $scope.load();
+                    } else {
+                        $("form[name='profileForm'] div.alert-danger").removeClass('hide').find('span.text').text(data);
+                    }
+                });
+            }
+        };
+
+        $scope.processPwdForm = function (isValid) {
+            if (isValid) {
+                angularHttpPost($http, url + '?password=1', $scope.passwordData, function (data) {
+                    if (data === 'success') {
+                        $("form[name='passwordForm'] div.alert-success").removeClass('hide');
+                        $scope.load();
+                    } else {
+                        $("form[name='passwordForm'] div.alert-danger").removeClass('hide').find('span.text').text(data);
+                    }
+                });
+            }
+        };
+
+        $scope.processAddrForm = function (isValid) {
+            if (isValid) {
+                var method = 'PUT',
+                        formUrl = url + '/address';
+                if ($scope.addrTargetId) {
+                    method = 'POST';
+                    formUrl = formUrl + '/' + $scope.addrTargetId;
+                }
+                angularHttp($http, method, formUrl, $scope.addrFormData, function (data) {
+                    if (data === 'success') {
+                        $("#address div.alert-success").removeClass('hide');
+                        $scope.load();
+                    } else {
+                        $("#address div.alert-danger").removeClass('hide').find('span.text').text(data);
+                    }
+                });
+            }
+        };
+
+        initDelete($scope, $http, url + '/address');
+
+        $( 'div.fileinput' ).on( 'change.bs.fileinput', function () {
+            // console.log('file selected');
+            var logoDUS = $( this ).find( "div.fileinput-preview img").attr( 'src' );
+            $scope.profileData.logo = logoDUS;
+        });
+        $( 'div.fileinput' ).on( 'clear.bs.fileinput', function () {
+            // console.log('file clear');
+            $scope.profileData.logo = $( "div.uploaded img" ).attr( 'src' );
+        });
+
+        // modal
+        $("#addressModal").on('show.bs.modal', function (event) {
+            var obj = $(event.relatedTarget);
+            var addr = obj.data('addr');
+            var modalTitle = $(this).find('.modal-title');
+            if (addr) {
+                modalTitle.text('Edit Address');
+                $scope.addrTargetId = addr._id;
+                $scope.addrFormData = $.extend({ }, addr);
+            } else {
+                modalTitle.text('New Address');
+                $scope.addrFormData = {};
+            }
+        }).on('hidden.bs.modal', function (event) {
+            $( this ).find( "input" ).val( "" );
+            $( this ).find( "input[type='checkbox']" ).prop( "checked", false );
+            $scope.addrFormData = {};
+            $scope.addrTargetId = '';
+            $("div.alert-danger").addClass('hide');
+        });
+
+    }).directive( 'pwCheck', [ function ( ) {
+        return {
+            require: 'ngModel',
+            link: function ( scope, elem, attrs, ctrl ) {
+                var firstPassword = '#' + attrs.pwCheck;
+                elem.add( firstPassword ).on( 'keyup', function ( ) {
+                    scope.$apply( function ( ) {
+                        var v = elem.val() === $( firstPassword ).val();
+                        ctrl.$setValidity( 'pwmatch', v );
+                    });
+                });
+            }
+        }
+    }]);
+</script>

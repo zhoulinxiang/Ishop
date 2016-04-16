@@ -1,0 +1,33 @@
+
+<div class="container" ng-controller="category">　
+        <p>{{item}}</p>
+        <legend><%=categoryPage%></legend>
+        <div class="row">
+            <div class="col-md-3" ng-repeat="productItem in products">
+                <img class="img-thumbnail" src="http://localhost:3000/{{productItem.img[0]}}">
+                <div class="productName" ><a href="/product/{{productItem._id}}">{{productItem.name}}</a></div>
+                <div class="productPrice" >¥{{productItem.price}}</div>
+            </div>
+        </div>
+</div><!-- End container -->
+
+
+<script>
+
+    App.controller("category", function ($scope, $http) {
+        var urlProductByCategory="/api/v1/productbycategory/";
+        var category="<%=categoryPage%>";
+        console.log("categoryPage:");
+        console.log(category);
+        $scope.load = function () {
+            $http.get(urlProductByCategory+category).success(function (result) {
+                console.log("products:");
+                console.log(result);
+                $scope.products=result.products;
+            })};
+
+        $scope.load();
+    });
+
+
+</script>

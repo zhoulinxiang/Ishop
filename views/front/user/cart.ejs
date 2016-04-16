@@ -1,0 +1,233 @@
+<div class="container" ng-controller="MyCart">
+    <div class="col-xs-2">
+        <% include ./sidebar %>
+    </div>
+    <div class="col-xs-10">
+        <legend><%=title%></legend>
+        <div class="cart">
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <th><input type="checkbox" class="mini" id="" ng-model="isCheckAll" ng-click="checkAll()"/></th>
+                            <th>Commodity</th>
+                            <th>UnitPrice</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Operation</th>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr class="datalist" ng-repeat="item in cartData">
+                            <td><input type="checkbox" name="listItem" class="mini" value="{{item._id}}" ng-model="item.isChecked" ng-click="check(item)"/></td>
+                            <td>
+                                <img src="http://localhost:3000/{{item.img[0]}}" class="pull-left" style="width:50px;height:50px;margin-right: 10px;" />
+                                <a href="/product/{{item._id}}" title="{{item.name}}">{{item.name | limitTo:70}}</a>
+                            </td>
+                            <td>{{item.price | currency: '¥'}}</td>
+                            <td>
+                                <div class="input-group col-sm-3">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default btn-sm" type="button" ng-disabled="item.quantity == 1" ng-click="minus(item)">-</button>
+                                        </span>
+                                    <input type="text" name="" ng-model="item.quantity" ng-keyup="validate($event, item)" class="form-control input-sm text-center {{item._id}}" placeholder="1" value="{{item.quantity}}" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default btn-sm" type="button" ng-click="inc(item)">+</button>
+                                        </span>
+                                </div>
+                            </td>
+                            <td class="text-danger">{{item.price * item.quantity | currency: '¥'}}</td>
+                            <td>
+                                <button class="btn btn-danger btn-xs" ng-click="deleteItems(item._id)"><span class="fa fa-fw fa-remove" aria-hidden="true"></span>Delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td class="text-right h4">Selected: </td>
+                            <td class="text-danger h4">{{totalItems}}</td>
+                            <td class="text-right h4">Total:</td>
+                            <td class="text-danger h4"><b>{{total | currency: '$'}}</b></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- End div.box -->
+            <div class="panel panel-info">
+                <button class="btn btn-danger btn-sm" ng-click="deleteItems()"><span class="fa fa-fw fa-remove" aria-hidden="true"></span> Delete</button>
+                <button class="btn btn-primary btn-sm pull-right" ng-disabled="!totalItems" ng-click="checkout()"><span class="fa fa-fw fa-check" aria-hidden="true"></span> Checkout</button>
+            </div>
+        </div>
+    </div>
+    <% include ../public/modal %>
+</div><!-- End div.container -->
+
+<script>
+
+    App.controller('MyCart', function ($scope, $http) {
+        var user_id = '<%=userInfo._id%>';
+        $scope.cartData = [];
+        $scope.shopData = [];
+        $scope.total = 0;
+        $scope.totalItems = 0;
+        $scope.isCheckAll = false;
+
+        $scope.load = function () {
+            $scope.total = 0;
+            $scope.totalItems = 0;
+            $scope.isCheckAll = false;
+            $http.get('/api/v1/user/' + user_id).success(function (user) {
+                console.log(user);
+                if (typeof user === 'object') {
+                    $scope.cartData = user.cart;
+                    $scope.userInfo=user;
+                    var shopIds = [];
+                    for (var i = 0; i < user.cart.length; i++) {
+                        (function (i) {
+                            $http.get('/api/v1/product/' + user.cart[i]._id + '?part=1').success(function (result) {
+                                if (typeof result === 'object') {
+                                    $.extend($scope.cartData[i], result);
+                                    $scope.cartData[i].isChecked = false;
+                                } else {
+                                    console.log('get product ' + user.cart[i]._id + ' error');
+                                }
+                            });
+                        })(i);
+                    }
+                } else {
+                    console.log('get user failed');
+                }
+            });
+        };
+
+        $scope.load();
+
+        initDelete($scope, $http, '/api/v1/user/cart');
+
+        // 结算购物车
+        $scope.checkout = function () {
+            if ($scope.totalItems <= 0) {
+                alert('Please choose one to check out.');
+                return;
+            }
+            console.log($scope.cartData);
+            var products=[],total=0;
+            for (var i = 0; i < $scope.cartData.length; i++) {
+                if($scope.cartData[i].isChecked){
+                    var product={};
+                    product.product_id=$scope.cartData[i]._id;
+                    product.count=$scope.cartData[i].quantity;
+                    product.price=$scope.cartData[i].price;
+                    products.push(product);
+                    total=total+$scope.cartData[i].quantity*$scope.cartData[i].price;
+                }
+            }
+            console.log("productsInfo:");
+            console.log(products);
+            console.log("userInfo:")
+            console.log($scope.userInfo);
+            var orderInfo={};
+            orderInfo.products=products;
+            orderInfo.total=total;
+            orderInfo.name=$scope.userInfo.name;
+            orderInfo.phone=$scope.userInfo.phone;
+            orderInfo.address=$scope.userInfo.address;
+            console.log("orderInfo:");
+            console.log(orderInfo);
+            angularHttpPut($http, '/api/v1/order', { orderInfo: orderInfo }, function (data) {
+                if (data === 'success') {
+                    window.location = '/user/manage/confirm_order';
+                } else {
+                    showErrorInfo(data);
+                }
+            });
+        };
+
+        // 计算总价
+        $scope.countTotal = function () {
+            $scope.total = 0;
+            for (var i = 0; i < $scope.cartData.length; i++) {
+                if ($scope.cartData[i].isChecked) {
+                    $scope.total += $scope.cartData[i].price * $scope.cartData[i].quantity;
+                }
+            }
+        };
+
+        // 防止数量输入框输入非法字符
+        $scope.validate = function ($event, item) {
+            var key = $event.which;
+            if ((key > 47 && key < 58) || key === 8) {
+                $scope.countTotal();
+            } else {
+                var num = item.quantity.match(/[0-9]+/);
+                item.quantity = num[0];
+            }
+            $scope.setQuantity({ _id: item._id, quantity: item.quantity - 1 });
+            $("input." + item._id).blur();
+        };
+
+        // 全选按钮
+        $scope.checkAll = function () {
+            // 全选商品
+            for (var i = 0; i < $scope.cartData.length; i++) {
+                $scope.cartData[i].isChecked = $scope.isCheckAll;
+            }
+
+            // 重置已选数量
+            $scope.totalItems = $scope.isCheckAll ? $scope.cartData.length : 0;
+            $scope.countTotal();
+        };
+
+        // 单选按钮
+        $scope.check = function (item) {
+            if (item.isChecked) {
+                $scope.totalItems++;
+                // 如果产品被全选，则全选按钮被全选
+                if ($scope.totalItems === $scope.cartData.length) {
+                    $scope.isCheckAll = true;
+                }
+
+            } else {
+                $scope.totalItems--;
+                // 取消全选按钮的选中
+                $scope.isCheckAll = false;
+                // 取消该产品所在店铺的全选的选中
+                for (var i = 0; i < $scope.shopData.length; i++) {
+                    if (item.shop._id === $scope.shopData[i]._id) {
+                        $scope.shopData[i].isChecked = false;
+                    }
+                }
+            }
+            $scope.getNewIds();
+            $scope.countTotal();
+        };
+
+        // 数量++
+        $scope.inc = function (item) {
+            // console.log(item);
+            if (item.quantity < item.amount) {
+                item.quantity++;
+                $scope.setQuantity({ _id: item._id, quantity: 1 });
+                $scope.countTotal();
+            }
+        };
+        // 数量--
+        $scope.minus = function (item) {
+            // console.log(item);
+            if (item.quantity > 1) {
+                item.quantity--;
+                $scope.setQuantity({ _id: item._id, quantity: -1 });
+                $scope.countTotal();
+            }
+        };
+        // 实时更新数量
+        $scope.setQuantity = function (data) {
+            angularHttpPost($http, '/api/v1/user/cart', data);
+        };
+
+    });
+
+</script>

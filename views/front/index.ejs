@@ -1,0 +1,145 @@
+
+<div class="container" ng-controller="index">　
+        <div id="index-slide" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#index-slide" data-slide-to="{{$index}}" class="" ng-repeat="item in ads track by $index" ng-class="{ 0: 'active' }[$index]"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item" ng-repeat="item in ads track by $index" ng-class="{ 0: 'active' }[$index]">
+                    <a href="{{item.path}}"><img src="{{item.img}}" alt="slide"></a>
+                    <div class="carousel-caption">
+                        .
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#index-slide" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#index-slide" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    <!-- 轮播组件-->
+
+    <div class="board hot-product" ng-repeat="item in productDateByCategory">
+        <!--<p>{{item}}</p>-->
+        <legend><a href="/category/{{item.category}}">{{item.category}}</a></legend>
+        <div class="row">
+            <div class="col-md-3" ng-repeat="productItem in item.products">
+                <a href="/product/{{productItem._id}}"><img class="img-thumbnail" src="{{productItem.img[0]}}"></a>
+                <div class="productName" ><a href="/product/{{productItem._id}}">{{productItem.name}}</a></div>
+                <div class="productPrice" >¥{{productItem.price}}</div>
+            </div>
+        </div>
+        <!--<div class="products">-->
+            <!--<div class="product" ng-repeat="item in products track by $index">-->
+                <!--<div class="image-lg pull-left">-->
+                    <!--<img src="{{item.logo}}" />-->
+                <!--</div>-->
+                <!--<div class="image-sm pull-left">-->
+                    <!--<img src="{{img}}" ng-repeat="img in item.images track by $index">-->
+                <!--</div>-->
+                <!--<div class="">-->
+                    <!--<div class="text pull-left">-->
+                        <!--<a href="/product/{{item.product_id}}" ng-if="!item.default">{{item.name}}</a>-->
+                        <!--<a href="#" ng-if="item.default">{{item.name}}</a>-->
+                    <!--</div>-->
+                    <!--<div class="list pull-left" ng-show="!item.default">-->
+                        <!--<ul class="nav">-->
+                            <!--<li><a>{{item.nSaled}} sale</a></li>-->
+                            <!--<li><a class="text-danger">{{item.price | currency: '$'}}</a></li>-->
+                            <!--<li><a class="btn" ng-click="buyItNow(item)">Buy It Now</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>&lt;!&ndash; End product &ndash;&gt;-->
+        <!--</div>&lt;!&ndash; End products &ndash;&gt;-->
+    </div><!-- End hot-product -->
+</div><!-- End container -->
+
+<script>
+
+    App.controller("index", function ($scope, $http) {
+        var url = '/api/v1/index/ad';
+        var urlCategory='/api/v1/category';
+        var urlProduct='/api/v1/product';
+        var urlProductByCategory="/api/v1/productbycategorylimitfour/";
+        $scope.load = function () {
+            $http.get(url).success(function (result) {
+                console.log("ads:");
+                console.log(result);
+                $scope.ads=result;
+            });
+            $http.get(urlCategory).success(function (result) {
+                $scope.categorys=result;
+//                console.log("category:");
+//                console.log(result);
+//                console.log("then:");
+//                console.log(result);
+                $scope.productDateByCategory=[];
+            }).then(function(result){
+                for(var i=0;i<result.data.length;i++){
+                    var item={};
+                    item.category=result.data[i].name;
+//                    console.log(result.data[i].name);
+                    $http.get(urlProductByCategory+item.category).success(function(result){
+                        $scope.productDateByCategory.push(result);
+//                        Object {category: "electronic", products: Array[2]}
+//                        category
+//                                :
+//                                "electronic"
+//                        products
+//                                :
+//                                Array[2]
+//                        __proto__
+//                                :
+//                                Object
+                        console.log(result);
+                        console.log($scope.productDateByCategory);
+                    });
+//                            .then(function (result) {
+//                        console.log($scope.productDateByCategory);
+//                    });
+                }
+
+            });
+//            $http.get(urlCategory).success(function (result) {
+//                console.log(result);
+//                $scope.products=result;
+//            });
+        };
+
+    $scope.load();
+
+//    $scope.buyItNow = function (item) {
+//        var shop = {
+//            shop: {
+//                _id: item.shop._id,
+//                shop_owner_id: item.shop_owner_id,
+//                shop_owner_username: item.shop.username
+//            },
+//            products: [{
+//                _id: item._id,
+//                quantity: 1,
+//                price: item.price
+//            }],
+//            total: item.price
+//        };
+//        angularHttpPut($http, '/api/v1/order', { shops: [shop] }, function (data) {
+//            if (data === 'success') {
+//                window.location = '/user/manage/confirm_order';
+//            } else {
+//                window.location = '/user/login';
+//            }
+//        });
+//    };
+    });
+
+</script>

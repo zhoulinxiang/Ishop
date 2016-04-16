@@ -1,0 +1,821 @@
+/*
+ * 前台页面默认样式
+ * Author: x-web
+ * Date: 20/10/2015
+ */
+
+/* body */
+body {
+    font-family: 'Century Gothic';
+}
+
+.wrap1366 {
+    width: 1366px;
+    margin: auto;
+}
+
+.wrap1190 {
+    width: 1190px;
+    margin: auto;
+}
+
+.wrap970 {
+    width: 970px;
+}
+
+.wrap740 {
+    width: 740px;
+}
+
+.bg-light {
+    background-color: #f5f5f5;
+}
+
+.bg-default {
+    background-color: #3c8dbc;
+}
+
+.container {
+    padding: 15px 15px;
+}
+
+.sortable {
+    cursor: pointer;
+}
+
+
+/* header */
+header.login {
+    height: 50px;
+    z-index: 100;
+}
+
+header.login div.logo img {
+    height: 50px;
+}
+
+/* index */
+div.category ul.nav li a {
+    color: #333;
+    font-size: 1em;
+    padding: 15px 10px;
+}
+
+#index-slide {
+    width: 100%;
+    margin: auto;
+}
+
+div.board {
+    margin: 50px 0;
+}
+
+/* board hot-shop */
+div.shop, div.brand {
+    border: 1px solid #eee;
+    margin: 20px 20px;
+    height: 300px;
+}
+
+#brand-slide {
+    height: 290px;
+}
+
+#brand-slide div.item img {
+    max-height: 298px;
+    display: inline-block;
+}
+
+#brand-slide div.item img:first-child {
+    width: 658px;
+}
+
+#brand-slide div.item img:last-child {
+    width: 400px;
+    margin-left: 30px;
+    border-left: 1px solid #eee;
+}
+
+#brand-slide a.carousel-control.left, #brand-slide a.carousel-control.right {
+    background: none;
+}
+
+div.shop div.image img {
+    width: 400px;
+    height: 300px;
+}
+
+div.shop div.items {
+    width: 600px;
+    heigth: 300px;
+}
+
+div.shop div.item {
+    width: 50%;
+    height: 50%;
+    padding: 10px 10px;
+    float: left;
+}
+
+div.shop div.item div.image {
+    border-right: 1px solid #eee;
+    float: left;
+}
+
+div.shop div.item div.image img {
+    width: 130px;
+    height: 130px;
+}
+
+div.shop div.item div.text {
+    width: 130px;
+    height: 130px;
+    padding: 50px 10px;
+    float: left;
+}
+
+div.text a {
+    color: #333;
+    text-decoration: none;
+}
+
+div.text a:hover {
+    color: #888;
+}
+
+div.products {
+    height: 850px;
+    margin: 20px 100px;
+}
+
+div.product {
+    width: 400px;
+    height: 400px;
+}
+
+/* left */
+div.product:nth-child(2n+1) {
+    float: left;
+}
+
+/* right */
+div.product:nth-child(2n) {
+    float: right;
+}
+
+/* bigger than 3, row2 - col1 */
+div.product:nth-child(n+3) {
+    margin-top: 50px;
+}
+
+div.image-lg, div.image-sm {
+    width: auto;
+}
+
+div.image-lg img {
+    width: 300px;
+    height: 300px;
+}
+
+div.image-sm img {
+    width: 100px;
+    height: 100px;
+    display: block;
+    border: 1px solid #eee;
+}
+
+div.product div.image-sm img {
+    border-bottom: 1px solid #bbb;
+}
+
+div.product div.text {
+    width: 300px;
+    height: 100px;
+    padding: 15px 10px;
+    font-size: 1.2em;
+}
+
+div.product div.list {
+    width: 100px;
+    height: 100px;
+}
+
+div.product div.list ul.nav li a {
+    padding: 6px 10px;
+    text-align: center;
+}
+
+/* footer */
+footer {
+    clear: both;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100px;
+    border-top: 5px solid #3c8dbc;
+    margin-top: 100px;
+    font-size: 1.1em;
+}
+
+footer ul.nav {
+    width: 670px;
+    margin: auto;
+}
+
+footer ul.nav li {
+    float: left;
+}
+
+footer ul.nav li a {
+    color: #333;
+}
+
+footer ul.nav li a:hover, footer ul.nav li a:focus {
+    background-color: #fff;
+    color: #999;
+}
+
+footer div.copyright {
+    margin-top: 20px;
+}
+
+/* header nav */
+header.nav {
+    padding: 12px 0;
+    line-height: 35px;
+}
+
+header.nav div.nav {
+    min-width: 400px;
+    max-width: 700px;
+}
+
+header.nav div.logo img {
+    height: 35px;
+}
+
+div.search form {
+    padding: 0 0;
+}
+
+div.nav {
+    font-size: 1.5em;
+}
+
+div.nav ul {
+    list-style: none;
+}
+
+div.nav ul li {
+    width: auto;
+    float: left;
+    padding: 0 15px;
+}
+
+div.nav ul li ul.dropdown-menu li a {
+    color: #333;
+}
+
+div.nav ul li.open > a, div.nav ul li.open > a:hover, div.nav ul li.open > a:focus {
+    background-color: #022e77;
+    color: #ccc;
+}
+
+div.nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+}
+
+div.nav ul li a:hover {
+    text-decoration: none;
+    color: #eee;
+}
+
+div.top {
+    height: 35px;
+    border-bottom: 1px solid #eee;
+}
+
+div.top div.btn-group a {
+    color: #333;
+}
+
+div.top div.btn-group a.red {
+    color: #f00;
+}
+
+div.top ul.dropdown-menu {
+    margin-top: 0;
+    left: auto;
+    right: auto;
+}
+
+div.top ul.dropdown-menu li {
+    padding: 0 10px;
+}
+
+li.user-header {
+    text-align: center;
+}
+
+li.user-header img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+a.btn-top:hover {
+    background-color: #eee;
+}
+
+/* user manage page */
+div.sidebar ul.nav li {
+    border-top: 1px solid #eee;
+}
+
+div.sidebar ul.nav li:first-child {
+    border-top: 0px;
+}
+
+div.sidebar ul.nav li a {
+    color: #333;
+    font-size: 1.2em;
+}
+
+div.sidebar ul.nav li a:hover {
+    background-color: #fff;
+    color: #999;
+}
+
+div.sidebar ul.nav li a.free-shop {
+    color: red;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+/*
+ * new shop
+ */
+.light {
+    background-color: #eee;
+}
+
+.middle {
+    background-color: #a1cfe0;
+}
+
+.deep {
+    background-color: #5b8c9d;
+}
+
+form.free-shop div.form-group textarea {
+    width: 100%;
+    height: 75px;
+    border-radius: 4px;
+    font-size: 1.1em;
+    resize: none;
+}
+
+form.free-shop > div {
+    padding: 15px 15px;
+}
+
+form.free-shop .close {
+    right: 0;
+    top: 0;
+}
+
+/*
+ * product page
+ */
+div.product-header {
+    height: 300px;
+}
+
+div.product-header div.logo {
+    height: 300px;
+    width: 280px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-flex;
+}
+
+div.product-header div.logo img {
+    height: 298px;
+    width: 280px;
+}
+
+div.product-header div.detail {
+    height: inherit;
+    display: inline-block;
+}
+
+div.product-header div.detail form div.form-group {
+    margin-bottom: 5px;
+}
+
+div.product-header div.detail form div.form-group:last-child button {
+    height: 50px;
+    border-radius: 0px;
+    font-size: 1.4em;
+}
+
+div.left-button {
+    padding-right: 0px;
+}
+
+div.right-button {
+    padding-left: 0px;
+}
+
+div.product-info, div.shop-info {
+    border: 1px solid #eee;
+    padding: 0 0;
+    height: 245px;
+}
+
+div.shop-info {
+    padding: 0 10px;
+}
+
+div.shop-info ul {
+    font-size: 0.9em;
+}
+
+div.shop-info ul li i {
+    color: green;
+}
+
+div.shop-logo img {
+    max-width: 100px;
+    max-height: 40px;
+}
+
+div.product-body {
+    margin: 50px 0;
+}
+
+div.product-body div.tab ul.nav {
+    padding: 0 100px;
+}
+
+#pContent, #pComment {
+    border: 1px solid #eee;
+    border-top: 0;
+    overflow: auto;
+}
+
+#pContent {
+    padding: 30px 100px;
+}
+
+#pContent div.content {
+    background-color: #f3f5f7;
+    padding: 30px 100px;
+    margin-top: 20px;
+}
+
+#pComment > div:first-child h1 {
+    font-size: 6em;
+    margin-top: 50px;
+}
+
+#pComment > div:last-child {
+    padding: 20px 50px;
+    border-left: 1px solid #eee;
+}
+
+#pComment div.comment {
+    border-bottom: 1px solid #eee;
+    padding: 10px 10px;
+}
+
+#pComment div.comment div:nth-child(n+2) {
+    padding-top: 30px;
+}
+
+/*
+ * Profile Page
+ */
+
+div.profile div.tab-content > div {
+    padding: 30px 50px;
+}
+
+div.profile div.uploaded img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/*
+ * My cart
+ */
+
+div.cart table tbody {
+    padding: 30px 0;
+}
+
+div.cart table tbody:first-child tr th:first-child {
+    width: 50px
+}
+
+div.cart table tbody:nth-child(n+2) tr:first-child td:first-child input {
+    margin-left: 10px;
+}
+
+div.cart table tbody:nth-child(n+2) tr:nth-child(n+2) td:first-child input {
+    margin-left: 15px;
+}
+
+
+/*
+ * Confirm Order
+ */
+div.tab-confirm-order div.progress {
+    height: 30px;
+}
+
+div.tab-confirm-order div.progress div.progress-bar {
+    line-height: 30px;
+    font-size: 1.3em;
+}
+
+div.addressSel div.address {
+    padding: 0 0;
+    height: 200px;
+    float: left;
+    width: 24%;
+    margin-right: 1%;
+}
+
+div.addressSel div.address div.panel-heading i {
+    display: none;
+}
+
+div.addressSel div.address.active div.panel-heading i {
+    display: inline;
+    color: green;
+}
+
+div.addressSel div.address.active, div.addressSel div.address:hover {
+    border: 1px solid #dff0d8;
+    cursor: pointer;
+}
+
+div#confirmOrder > div {
+    margin-bottom: 30px;
+}
+
+/*
+ * search result page
+ */
+div.search-result > div {
+    padding: 10px 10px;
+    border: 1px solid #eee;
+    height: auto;
+}
+
+div.filter {
+    width: 300px;
+    border-right: 0 !important;
+}
+
+div.filter form {
+    padding: 20px 20px;
+    height: 100%;
+}
+
+div.filter form > div.form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+div.result {
+    width:840px;
+}
+
+div.result div.item {
+    width: 98%;
+    border-bottom: 1px solid #eee;
+    height: 200px;
+    margin: 20px auto;
+}
+
+div.result div.item > div {
+    height: 98%;
+}
+
+div.result div.item div.logo {
+    width: 30%;
+}
+
+div.result div.item div.logo img {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid #eee;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.result div.item div {
+    padding: 0 5px;
+}
+
+div.result div.item div.text img {
+    max-width: 150px;
+    max-height: 80px;
+}
+
+div.result div.item div.text h2, div.result div.item div.text h3 {
+    margin-top: 5px;
+}
+
+/*
+ * Shop Home Page
+ */
+div.shop-product div.item img {
+    width: 230px;
+    height: 200px;
+}
+
+div.shop-product div.item {
+    height: 380px;
+    border: 1px solid #eee;
+}
+
+div.shop-product div.item:hover {
+    border-color: red;
+}
+
+
+/*
+ * login_register page
+ */
+section#login, section#register {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 0 0;
+    color: white;
+    overflow: hidden;
+}
+
+section#login > div, section#register > div {
+    height: 100%;
+}
+
+section#login > div.left, section#register > div.left {
+    background-color: #a1cfe0;
+}
+
+section#login > div.right, section#register > div.right {
+    background-color: #5b8c9d;
+}
+
+section#login > div form, section#register > div form {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+section#login div.info, section#register div.info {
+    width: 90%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+section div.tips {
+    margin-top: 20%;
+    font-size: 1.3em;
+}
+
+section#login .btn-lg, section#register .btn-lg {
+    width: 100%;
+    background-color: #f2884e;
+}
+
+section#login .btn-lg:hover, section#register .btn-lg:hover, section#login .btn-lg:focus , section#register .btn-lg:focus {
+    color: #fff;
+}
+
+section#login a.forget {
+    color: #959595;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+section#login a.forget:hover {
+    color: #333;
+}
+
+section a.sign {
+    color: #f2884e;
+    text-decoration: none;
+    font-size: 1.3em;
+}
+
+section a.sign:hover {
+    color: #ff994e;
+}
+
+section#login div.ellipse, section#register div.ellipse {
+    position: absolute;
+    z-index: 100;
+    top: 48%;
+    left: -15px;
+}
+
+section#login div.ellipse a, section#register div.ellipse a {
+    cursor: pointer;
+}
+
+section#login div.ellipse img, section#register div.ellipse img {
+    width: 30px;
+    height: 30px;
+}
+
+/* data-loading overlay */
+.box .overlay {
+    background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
+    border-radius: 3px;
+    z-index: 1010;
+}
+.box > .overlay, .box > .loading-img {
+    height: 50%;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+.box .overlay > .fa {
+    color: #000;
+    font-size: 30px;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
+    position: absolute;
+    top: 50%;
+}
+
+/* wysiwyg */
+/* CSS for the font-name + font-size plugin */
+.wysiwyg-plugin-list {
+    max-height: 16em;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.wysiwyg-plugin-list a,
+.wysiwyg-plugin-list a:link,
+.wysiwyg-plugin-list a:visited {
+    display: block;
+    color: black;
+    padding: 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.wysiwyg-plugin-list a:hover {
+    color: HighlightText;
+    background-color: Highlight;
+}
+/* CSS for the smiley plugin */
+.wysiwyg-plugin-smilies {
+    padding: 10px;
+    text-align: center;
+    white-space: normal;
+}
+.wysiwyg-plugin-smilies img {
+    display: -moz-inline-stack; /* inline-block: http://blog.mozilla.org/webdev/2009/02/20/cross-browser-inline-block/ */
+    display: inline-block;
+    *display: inline;
+}
+.wysiwyg-input, .wysiwyg-browse {
+    height: auto;
+}
+.wysiwyg-editor {
+    height: 200px;
+}
+
+
+
+div.productName{
+    font-size: 20px;
+    text-align:center;
+}
+div.productPrice{
+    text-align:center;
+    color:red;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #888;
+    text-decoration: none;
+}

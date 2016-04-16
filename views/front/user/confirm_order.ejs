@@ -1,0 +1,167 @@
+<div class="container" ng-controller="confirmOrder">
+    <legend>
+        <span class="h3"><%=title%></span>
+        <small class="pull-right text-success hide"><i class="fa fa-info"></i> <span id="successInfo"></span></small>
+        <small class="pull-right text-danger hide"><i class="fa fa-info"></i> <span id="errorInfo"></span></small>
+    </legend>
+    <div class="tab-confirm-order">
+        <ul class="nav nav-tabs hide" role="tablist">
+            <li class="active"><a href="#confirmOrder">Confirm</a></li>
+            <li class=""><a href="#payOrder">Pay</a></li>
+            <li class=""><a href="#doneOrder">Done</a></li>
+        </ul>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
+                1. Confirm
+            </div>
+        </div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="confirmOrder">
+                <div class="addressSel col-sm-12">
+                    <legend>Receiver's Address</legend>
+                            <p>Name: {{orderData.name}}</p>
+                            <p>Address: {{orderData.address}}</p>
+                            <p>Phone: {{orderData.phone}}</p>
+                </div>
+                <div class="productList col-sm-12">
+                    <legend>Confirm commodities</legend>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Commodity</th>
+                                    <th>UnitPrice</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                                <tr class="datalist" ng-repeat="item in orderData.products">
+                                    <td>
+                                        <img src="/{{item.img[0]}}" class="pull-left" style="width:50px;height:50px;margin-right: 10px;" />
+                                        <a href="/product/{{item._id}}" title="{{item.name}}">{{item.name | limitTo:70}}</a>
+                                    </td>
+                                    <td>{{item.price | currency: '￥'}}</td>
+                                    <td>{{item.count}}</td>
+                                    <td class="text-danger">{{item.price * item.count | currency: '￥'}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                </div>
+                <div class="summary col-sm-12">
+                    <h3 class="text-right text-danger">Total: <b>{{orderData.total | currency: '$'}}</b></h3>
+                    <a class="btn btn-primary btn-lg pull-right" href="#" ng-click="confirmOrder()">Submit Order</a>
+                    <a class="btn btn-lg pull-right" href="/user/manage/cart">Back to Cart</a>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="payOrder">
+                <legend><h2>Pay</h2></legend>
+                <form class="form form-horizontal" name="payForm" ng-submit="processPayForm(true)" novalidate>
+
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-sm-2">Payment Password</label>-->
+                        <!--<div class="input-group col-sm-4">-->
+                            <!--<input class="form-control" type="password" ng-model="payFormData.password" placeholder="your login password" required/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="input-group col-sm-3 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Pay it</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="doneOrder">
+                <h1 class="text-success text-center">Success! <small>Your order has paid, waiting the seller shipping.</small></h1>
+                <div class="text-center">
+                    <a class="btn btn-lg" href="/user/manage/order">Back to my order</a>
+                    <a class="btn btn-lg" href="/search">Countinue to go shoppping...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+
+    });
+
+    App.controller('confirmOrder', function ($scope, $http) {
+        var user_id = '<%=userInfo._id%>', username = '<%=userInfo.username%>';
+
+        $scope.loadUserData = function () {
+            $scope.userData = {};
+
+            $http.get('/api/v1/user/' + user_id).success(function (data) {
+                if (typeof data === 'object') {
+                    $scope.userData = data;
+                } else {
+                    console.log('error');
+                    showErrorInfo('get user info failed.');
+                }
+            });
+        }
+
+        $scope.load = function () {
+            $scope.loadUserData();
+
+            $scope.orderData = {};
+
+            $http.get('/api/v1/order/confirm').success(function (data) {
+                console.log("orderData");
+                console.log(data);
+                if (typeof data === 'object') {
+                    $scope.orderData = data;
+                    $scope.totalPay = 0;
+                    for (var j = 0; j < data.products.length; j++) { // cart order
+                        (function(i) {
+                            $http.get('/api/v1/product/' + data.products[i].product_id).success(function (result) {
+                                if (typeof result === 'object') {
+                                    $.extend($scope.orderData.products[i], result);
+                                    console.log("orderData");
+                                    console.log(data);
+                                } else {
+                                    console.log('get product ' + data.products[i].product_id + ' error');
+                                }
+                            });
+                        })(j);
+                        }
+                } else {
+                    console.log('error');
+                    showErrorInfo('get order info failed.');
+                }
+            });
+        };
+
+        $scope.load();
+
+
+        $scope.confirmOrder = function () {
+            angularHttp($http, 'POST', '/api/v1/order/'+$scope.orderData._id+'/confirm',{}, function (data) {
+                if (data === 'success') {
+                    console.log('success');
+                    $("a[href='#payOrder']").tab('show');
+                    $("div.progress-bar", "div.tab-confirm-order").text('2.Pay').css('width', '66%');
+                }
+            });
+
+        };
+
+        $scope.processPayForm = function (isValid) {
+            if (isValid) {
+
+                angularHttpPost($http, '/api/v1/order/' + $scope.orderData._id + '/pay', {}, function (data) {
+                    if (data === 'success') {
+                        console.log('success');
+                        $("a[href='#doneOrder']").tab('show');
+                        $("div.progress-bar", "div.tab-confirm-order").text('3.Done').css('width', '100%');
+                    }
+                });
+            }
+        }
+
+
+    });
+
+</script>
