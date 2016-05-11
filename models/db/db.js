@@ -19,18 +19,6 @@ var Db = {
         });
     },
 
-    findAll: function (obj, req, res, logMsg) {
-        obj.find({}, function (err, result) {
-            if (err) {
-                res.next(err);
-            } else {
-                if (logMsg) {
-                    console.log(logMsg + ' success!');
-                }
-                return res.json(result);
-            }
-        });
-    },
 
     findOne: function ( id, obj, req, res, logMsg) {
         obj.findOne({ _id: id }, function (err, result) {
@@ -100,7 +88,7 @@ var Db = {
         if (sort) {
             query.sort(sort);
         } else {
-            query.sort({ "date": -1 });
+            query.sort({ "created": -1 });
         }
         query.exec(function (err, docs) {
             if (err) {
@@ -121,100 +109,6 @@ var Db = {
             }
         });
     },
-
-    getPaginationResult: function (obj, req, res, q, filed) {
-        var searchKey = req.query.searchKey,
-            page = parseInt(req.query.page),
-            limit = parseInt(req.query.limit);
-
-        if (!page) {
-            page = 1;
-        }
-        if (!limit) {
-            limit = 15;
-        }
-
-        var order = req.query.order,
-            sq = {},
-            Str = '',
-            A = 'problemID',
-            B = 'asc';
-
-        if (order) {
-            Str = order.split('_');
-            A = Str[0];
-            B = Str[1];
-            sq[A] = B;
-        } else {
-            sq.date = -1;
-        }
-
-        var startNum = (page - 1) * limit,
-            resultList = null,
-            resultNum = 0;
-
-        if (q && q.length > 1) {
-            resultList = obj.find().or(q, filed).sort(sq).skip(startNum).limit(limit);
-            resultNum = obj.find().or(q, filed).count();
-        } else {
-            resultList = obj.find(q, filed).sort(sq).skip(startNum).limit(limit);
-            resultNum = obj.find(q, filed).count();
-        }
-
-        var datasInfo = {
-            docs: resultList,
-            pageInfo: {
-                "totalItems": resultNum,
-                "currentPage": page,
-                "limit": limit,
-                "startNum": startNum,
-                "searchKey": searchKey
-            }
-        };
-
-        return datasInfo;
-    },
-
-    getDatasByParam: function (obj, req, res, q) {
-        var order = req.query.order,
-            limit = parseInt(req.query.limit),
-            sq = {},
-            Str = '',
-            A = 'problemID',
-            B = 'asc';
-
-        if (order) {
-            Str = order.split('_');
-            A = Str[0];
-            B = Str[1];
-            sq[A] = B;
-        } else {
-            sq.date = -1;
-        }
-
-        if (!limit) {
-            return obj.find(q).sort(sq);
-        }
-
-        return obj.find(q).sort(sq).skip(0).limit(limit);
-    },
-
-    getKeyArrayByTokenId: function (tokenId) {
-        return Db.decrypt(tokenId, settings.encrypt_key).split('$');
-    },
-
-    getCount: function (obj, req, res, conditions) {
-        obj.count(coditions, function (err, count) {
-            if (err) {
-                console.error(err);
-            } else {
-                return res.json({
-                    count: count
-                });
-            }
-        });
-    },
-
     encrypt: function (data, key) {
         var cipher = crypto.createCipher("bf", key);
         var newPwd = '';

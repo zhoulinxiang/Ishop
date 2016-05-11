@@ -46,15 +46,11 @@ router.get('/manage/order', function ( req, res, next ) {
 });
 
 router.get('/manage/comment', function ( req, res, next ) {
-    res.render('front/user/comment', SiteUtils.getData4Customer(req, res, 'Comment Management'));
+    //res.render('front/test');
+    res.end("not development");
+    //res.render('front/user/comment', SiteUtils.getData4Customer(req, res, 'Comment Management'));
 });
 
-router.get( '/manage/free_shop', function ( req, res, next ) {
-    if ( Auth.isShopOwner(req) ) {
-        res.redirect('/');
-    }
-    res.render( 'front/user/free_shop', SiteUtils.getData4Customer( req, res, 'Apply for a Free Shop' ) );
-});
 
 
 // logout

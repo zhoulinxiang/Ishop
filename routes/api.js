@@ -77,50 +77,6 @@ router.delete('/v1/user/cart/:product_id', function (req, res, next) {
     }
 });
 
-/* User Address */
-/*
- * PUT User's Address
- * @pre-condition: must be logined
- * @body: name, postcode, address, phoneNum, isDefault
- */
-router.put('/v1/user/address', function (req, res, next) {
-    if (Auth.isLogin(req)) {
-        User.business.insertAddr(req, res);
-    } else {
-        res.end('Permission Denied.');
-    }
-});
-
-/*
- * POST User's Address
- * @pre-condition: must be logined
- * @param: addr_id
- * @body: name, postcode, address, phoneNum, isDefault
- */
-router.post('/v1/user/address/:addr_id', function (req, res, next) {
-    if (Auth.isLogin(req)) {
-        var addr_id = req.params.addr_id;
-        User.business.updateAddr(addr_id, req, res);
-    } else {
-        res.end('Permission Denied.');
-    }
-});
-
-/*
- * DELETE User's Address
- * @pre-condition: must be logined
- * @param: addr_id
- */
-router.delete('/v1/user/address/:addr_id', function (req, res, next) {
-    if (Auth.isLogin(req)) {
-        var addr_id = req.params.addr_id;
-        User.business.deleteAddr(addr_id, req, res);
-    } else {
-        res.end('Permission Denied.');
-    }
-});
-
-
 /* Product Api */
 /*
  * GET Product
@@ -166,6 +122,19 @@ router.get('/v1/order/:order_id?', function (req, res, next) {
         Order.business.findByUser(req,res);
 
     }
+    //if (order_id) {
+    //    if (order_id === 'cart') {
+    //        if (!Auth.isLogin(req)) {
+    //            res.end('Permission Denied.');
+    //        } else {
+    //            Order.business.findCart(req, res);
+    //        }
+    //    } else {
+    //        Order.business.findOne(order_id, req, res);
+    //    }
+    //} else {
+    //    Order.business.find(req, res);
+    //}
 });
 
 /*
@@ -211,6 +180,62 @@ router.delete('/v1/order/:order_id', function (req, res, next) {
     }
 });
 
+
+/* Category Api */
+/*
+ * GET Category
+ * @query: shop_id
+ */
+router.get('/v1/category/:cate_id?', function (req, res, next) {
+    var cate_id = req.params.cate_id;
+
+
+    if (cate_id) {
+             Category.business.findOne(cate_id, req, res);
+    } else {
+            Category.business.find(req, res);
+
+    }
+});
+
+/*
+ * POST Category
+ * @param: *cate_id
+ */
+router.post('/v1/category/:cate_id', function (req, res, next) {
+    var cate_id = req.params.cate_id;
+
+    if (Auth.isShopOwner(req)) {
+        Category.business.updateByUser(cate_id, req, res);
+    } else {
+        res.end('Permission Denied.');
+    }
+});
+
+/*
+ * PUT Category
+ */
+router.put('/v1/category', function (req, res, next) {
+    if (Auth.isShopOwner(req)) {
+        Category.business.insertByUser(req, res);
+    } else {
+        res.end('Permission Denied.');
+    }
+});
+
+/*
+ * DELETE Category
+ * @param: cate_id
+ */
+router.delete('/v1/category/:cate_id', function (req, res, next) {
+    var cate_id = req.params.cate_id;
+
+    if (Auth.isShopOwner(req)) {
+        Category.business.delete(cate_id, req, res);
+    } else {
+        res.end('Permission Denied.');
+    }
+});
 
 /* Ad Api */
 /*

@@ -89,14 +89,17 @@ router.get( '/manage/order', function ( req, res, next ) {
 });
 
 
-//商品图片上传
+//商品信息上传
 router.post("/manage/product",upload.array('photos', 3), function (req, res, next) {
   //console.log("upload");
   //console.log(util.inspect(req.files));
   //console.log(req.body);
-  req.body.img=[];
+  img=[];
   for(var i=0;i<req.files.length;i++){
-    req.body.img.push("images/"+req.files[i].filename);
+    img.push("images/"+req.files[i].filename);
+  }
+  if(img.length>0){
+    req.body.img=img;
   }
   console.log("/manage/product");
   console.log(req.body);
@@ -113,7 +116,9 @@ router.post("/manage/ad",upload.single('photo'), function (req, res, next) {
   //console.log("upload");
   //console.log(util.inspect(req.files));
   //console.log(req.body);
-  req.body.img="images/"+req.file.filename;
+  if(req.file){
+    req.body.img="images/"+req.file.filename;
+  }
   console.log(req.body);
   if(req.body.targetId){
     //console.log("targetId:"+req.body.targetId);
@@ -135,9 +140,11 @@ router.get( '/api/v1/:object_type/:_id?', function ( req, res, next ) {
   if ( target ) {
     if ( _id ) {
       Db.findOne( _id, target.obj, req, res, 'find ' + _id );
-    } else if ( target.obj.business.query ) {
-      target.obj.business.query( req, res );
-    } else {
+    }
+    //else if ( target.obj.business.query ) {
+    //  target.obj.business.query( req, res );
+    //}
+    else {
       //console.log("target:"+util.inspect(target));
       Db.pagination( target.obj, req, res, target.key );
     }

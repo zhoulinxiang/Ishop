@@ -4,7 +4,9 @@
         <legend><%=categoryPage%></legend>
         <div class="row">
             <div class="col-md-3" ng-repeat="productItem in products">
-                <img class="img-thumbnail" src="http://localhost:3000/{{productItem.img[0]}}">
+                <a href="/product/{{productItem._id}}">
+                    <img class="img-thumbnail" src="http://localhost:3000/{{productItem.img[0]}}">
+                </a>
                 <div class="productName" ><a href="/product/{{productItem._id}}">{{productItem.name}}</a></div>
                 <div class="productPrice" >¥{{productItem.price}}</div>
             </div>

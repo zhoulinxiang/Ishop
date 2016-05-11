@@ -210,9 +210,6 @@ Order.business = {
             });
         }
 
-        function now() {
-            return new Date().toISOString();
-        }
     },
 
 };

@@ -2,7 +2,7 @@
     <% include public/modal %>
     <div class="col-xs-12">
         <div class="panel">
-            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> New User</a>
+            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> New Product</a>
             <% include public/tableTool %>
             <div class="pull-right">
                 <% include public/searchBox %>
@@ -115,13 +115,13 @@
             $scope.categorys = result.docs;
             console.log($scope.categorys);
         });
-        //获取用户列表信息
+        //获取商品信息
         initPagination( $scope, $http, $scope.object_type, "<%=searchKey%>" );
 
-        //删除用户
+        //删除商品
         initDelOption( $scope, $http, $scope.object_type, "<%=searchKey%>", 'Are you sure you want to delete the selected item? ' );
 
-        // 修改用户
+        // 修改商品
         $('#addNewAdminUser').on( 'show.bs.modal', function ( event ) {
             var obj = $( event.relatedTarget );
             var editId = obj.data( 'whatever' );
@@ -148,7 +148,7 @@
             $( "#adminUserInfo" ).addClass( "hide" );
         });
 
-        // 添加新用户或修改用户
+        // 添加新商品或者修改商品
         $scope.processForm = function ( isValid ) {
             var url = "/admin/api/v1/" + $scope.object_type,
                     method = 'POST';

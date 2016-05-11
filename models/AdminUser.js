@@ -2,9 +2,7 @@
 
 var mongoose = require('mongoose'),
     shortid=require("shortid");
-
 var Scheme = mongoose.Schema;
-
 var adminScheme=new Scheme({
     _id: {
         type: String,

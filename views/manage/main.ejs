@@ -33,12 +33,11 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <ul class="list-unstyled" style="font-size: 1.2em;">
-                        <li><a href="/admin/manage/users/shop_owner"><i class="fa fa-fw fa-male"></i> ShopOwner</a></li>
-                        <li><a href="/admin/manage/users/customer"><i class="fa fa-fw fa-user"></i> Customer</a></li>
-                        <li><a href="/admin/manage/order"><i class="fa fa-fw fa-list"></i> Order</a></li>
-                        <li><a href="/admin/manage/income"><i class="fa fa-fw fa-dollar"></i> Income</a></li>
-                        <li><a href="/admin/manage/commission"><i class="fa fa-fw fa-money"></i> Update Commission</a></li>
-                        <li><a href="/admin/manage/backup"><i class="fa fa-fw fa-copy"></i> Backup</a></li>
+                        <li><a href="/admin/manage/users/"><i class="fa fa-fw fa-male"></i> UserManagement</a></li>
+                        <li><a href="/admin/manage/category"><i class="fa fa-fw fa-user"></i> CategoryManagement</a></li>
+                        <li><a href="/admin/manage/product"><i class="fa fa-fw fa-list"></i> ProductManagement</a></li>
+                        <li><a href="/admin/manage/ad"><i class="fa fa-fw fa-dollar"></i> AdManagement</a></li>
+                        <li><a href="/admin/manage/order"><i class="fa fa-fw fa-money"></i>OrderManagement</a></li>
                     </ul>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -65,37 +64,6 @@
 </div>
 <script>
     App.controller( "mainPanel", function( $scope, $http ) {
-        $http.get("/admin/api/v1/user_count").success( function ( result ) {
-            var userCount = result;
-            var content = [
-                {
-                    "label": "admin",
-                    "value": userCount.adminCount
-                },
-                {
-                    "label": "customer",
-                    "value": userCount.customerCount
-                },
-                {
-                    "label": "shop owner",
-                    "value": userCount.shopOwnerCount
-                }
-            ];
-            renderPie("#site-pie", content, { height: 170 });
-        });
 
-        $http.get("/admin/api/v1/system_logs?limit=5").success( function ( result ) {
-            $scope.systemLog = result;
-        });
-
-        $http.get("/admin/api/v1/income?groupDate=daily").success(function (result) {
-            if (typeof result === 'object') {
-                if (result.length === 0) {
-                    console.log("No result.");
-                } else {
-                    barChart("#income-barChart", [result]);
-                }
-            }
-        });
     });
 </script>

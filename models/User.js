@@ -127,38 +127,7 @@ user.business={
         });
     },
 
-    insertAddr: function (req, res) {
-        user.update({ _id: req.session.user._id }, { $push: { address: req.body } }, function (err) {
-            if (err) {
-                console.log(err);
-                res.end('error');
-            } else {
-                res.end('success');
-            }
-        });
-    },
 
-    updateAddr: function (id, req, res) {
-        user.update({ _id: req.session.user._id, 'address._id': id }, { $set: { 'address.$': req.body } }, function (err) {
-            if (err) {
-                console.log(err);
-                res.end('error');
-            } else {
-                res.end('success');
-            }
-        });
-    },
-
-    deleteAddr: function (id, req, res) {
-        user.update({ _id: req.session.user._id }, { $pull: { address: { _id: id } } }, function (err) {
-            if (err) {
-                res.end('error');
-                console.log(err);
-            } else {
-                res.end('success');
-            }
-        });
-    }
 
 };
 

@@ -95,14 +95,6 @@
 
     App.controller("orderManage", function ($scope, $http) {
         var url = '/admin/api/v1/order';
-        var nState = 5,
-                stateMap = {
-                    'submit': 1,
-                    'pay': 2,
-                    'shipping': 3,
-                    'confirm': 4,
-                    'done': 5
-                };
 
         initPage($scope, $http, url, true, loadProducts);
         $scope.load = function () {

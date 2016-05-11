@@ -2,7 +2,7 @@
     <% include public/modal %>
     <div class="col-xs-12">
         <div class="panel">
-            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> New User</a>
+            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> New Ad</a>
             <% include public/tableTool %>
             <div class="pull-right">
                 <% include public/searchBox %>
@@ -40,7 +40,7 @@
 
     </div><!-- /.col -->
 
-    <!--添加新用户模态窗口-->
+    <!--添加广告模态窗口-->
     <div class="modal fade" id="addNewAdminUser">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -84,11 +84,11 @@
     App.controller( "adminProduct", function ( $scope, $http ) {
         $scope.formData = {};
         $scope.object_type = '<%=bigCategory%>';
-        //获取用户列表信息
+        //获取广告列表信息
         initPagination( $scope, $http, $scope.object_type, "<%=searchKey%>" );
-        //删除用户
+        //删除广告
         initDelOption( $scope, $http, $scope.object_type, "<%=searchKey%>", 'Are you sure you want to delete the selected item? ' );
-        // 修改用户
+        // 修改广告
         $('#addNewAdminUser').on( 'show.bs.modal', function ( event ) {
             var obj = $( event.relatedTarget );
             var editId = obj.data( 'whatever' );
@@ -114,7 +114,7 @@
             $( "#adminUserInfo" ).addClass( "hide" );
         });
 
-        // 添加新用户或修改用户
+        // 添加新广告或修改广告
         $scope.processForm = function ( isValid ) {
             var url = "/admin/api/v1/" + $scope.object_type,
                     method = 'POST';
