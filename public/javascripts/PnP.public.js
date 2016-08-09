@@ -44,14 +44,14 @@ function getSelectIds(){
 }
 
 function initDelete($scope, $http, url, msg) {
-    msg = msg || 'Are you sure you want to delete the item?';
+    msg = msg || '您确定要删除该项目?';
 
     $scope.deleteItems = function (id) {
         var targetId = id || $('#targetIds').val();
         targetId = targetId || '';
 
         if (!targetId) {
-            alert('Please choose one item at least');
+            alert('请至少选中一项');
             return;
         }
 

@@ -16,30 +16,30 @@
 <body class="login-page" ng-app="adminLogin" ng-controller="login">
 <div class="login-box">
     <div class="login-logo">
-        <a href="/"><b>IShop</b>.com</a>
+        <a href="/"><b>网上商城</b></a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Administrator Login</p>
-        <div class="alert alert-danger" role="alert" id="loginInfo"><i class="fa fa-exclamation-triangle"></i>&nbsp;username or password is wrong.</div>
+        <p class="login-box-msg">管理员登录</p>
+        <div class="alert alert-danger" role="alert" id="loginInfo"><i class="fa fa-exclamation-triangle"></i>&nbsp;用户名或密码错误</div>
         <form name="loginForm" ng-submit="processLogForm(loginForm.$valid)" novalidate>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="username" ng-model="logFormData.username" placeholder="username"/>
+                <input type="text" class="form-control" name="username" ng-model="logFormData.username" placeholder="用户名"/>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" ng-model="logFormData.password" placeholder="password"/>
+                <input type="password" class="form-control" ng-model="logFormData.password" placeholder="密码"/>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox hide">
                         <label>
-                            <input type="checkbox"/> Remember Me
+                            <input type="checkbox"/> 记住我
                         </label>
                     </div>
                 </div><!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="loginForm.$invalid">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="loginForm.$invalid">登录</button>
                 </div><!-- /.col -->
             </div>
         </form>

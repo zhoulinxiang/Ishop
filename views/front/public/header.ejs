@@ -9,38 +9,23 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu col-md-2">
-                <li><a href="/user/manage/profile" class="btn">Profile</a></li>
-                <li><a href="/user/logout" class="btn logout"><i class="fa fa-sign-out"></i>Logout</a></li>
+                <li><a href="/user/manage/profile" class="btn">账户信息</a></li>
+                <li><a href="/user/logout" class="btn logout"><i class="fa fa-sign-out"></i>登出</a></li>
             </ul>
         </div>
         <!-- message -->
-        <!-- <div class="btn-group">
-            <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
-                <i class="fa fa-envelope"></i>
-                Message <span class="badge">3</span>
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="#">new message 1</a></li>
-                <li><a href="#">new message 2</a></li>
-                <li><a href="#">new message 3</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#" class="btn">More..</a></li>
-                <li><a href="#" class="btn">Mark</a></li>
-            </ul>
-        </div> -->
     <% } else { %>
         <!-- Sign in / up -->
         <div class="btn-group">
             <a class="btn btn-top" type="button" href="/user/login">
                 <i class="fa fa-sign-in"></i>
-                Sign In
+                登录
             </a>
         </div>
         /
         <div class="btn-group">
             <a class="btn btn-top red" type="button" href="/user/login#register">
-                Sign Up
+                注册
             </a>
         </div>
     <% } %>
@@ -49,52 +34,43 @@
         <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
                 <i class="fa fa-shopping-cart"></i>
-                Cart
+                购物车
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu cart">
-                <li><a href="/user/manage/cart">Go to my cart</a></li>
+                <li><a href="/user/manage/cart">我的购物车</a></li>
             </ul>
         </div>
         <!-- mine -->
         <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" type="button" data-toggle="dropdown">
                 <i class="fa fa-gear"></i>
-                Mine
+                我的
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="/user/manage/order">My Order</a></li>
-                <li><a href="/user/manage/profile">My Profile</a></li>
-                <li><a href="/user/manage/comment">My Comments</a></li>
+                <li><a href="/user/manage/order">我的订单</a></li>
+                <li><a href="/user/manage/profile">我的信息</a></li>
+                <!--<li><a href="/user/manage/comment">我的评论</a></li>-->
             </ul>
         </div>
         <!-- home-->
         <div class="btn-group pull-right">
             <a class="btn" type="button" href="/">
                 <i class="fa fa-home"></i>
-                Home
+                主页
             </a>
         </div>
     </div>
 </div>
 <header class="nav bg-default">
     <div class="wrap1190">
-        <div class="logo col-md-2 pull-left">
-            <a href="/"><img src="/stylesheets/front/image/logo.jpg" /></a>
-        </div>
-        <!--<div class="nav pull-left">-->
-            <!--<ul>-->
-                <!--<% for (var i = 0; i < category.length; i++) { %>-->
-                        <!--<li><a href="<%=category[i].url%>"><%=category[i].name%></a></li>-->
-                <!--<% } %>-->
-            <!--</ul>-->
-        <!--</div>-->
+
         <div class="search pull-right">
             <form class="form form-inline" action="/search" type="get">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="keyword" placeholder="search..." style="width: 250px;" />
-                    <span class="input-group-btn"><button class="btn btn-default" type="submit">Search</button></span>
+                    <input type="text" class="form-control" name="keyword" placeholder="搜索..." style="width: 250px;" />
+                    <span class="input-group-btn"><button class="btn btn-default" type="submit">搜索</button></span>
                 </div>
             </form>
         </div>

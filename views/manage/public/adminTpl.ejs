@@ -47,7 +47,7 @@
     <!-- Main Header -->
     <header class="main-header">
         <!-- Logo -->
-        <a href="/admin" class="logo"><b>Ishop</b>.com</a>
+        <a href="/admin" class="logo"><b>网上商城</b></a>
 
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -70,10 +70,11 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-right">
-                                    <a href="/admin/logout" class="btn btn-default btn-flat">Logout</a>
+                                    <a href="/admin/logout" class="btn btn-default btn-flat">登出</a>
                                 </div>
                             </li>
                         </ul>
+
                     </li>
                     <% } %>
                 </ul>
@@ -98,17 +99,17 @@
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
-                <li class="header">Main Menu</li>
+                <li class="header">主菜单</li>
                 <!-- Optionally, you can add icons to the links -->
                 <input type="hidden" id="currentCate" value="<%=bigCategory%>"/>
                 <li class="treeview active" cid="system">
-                    <a href="#"><span>System Management</span> <i class="fa fa-angle-right pull-right"></i></a>
+                    <a href="#"><span>系统管理</span> <i class="fa fa-angle-right pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li cid="user"><a href="/admin/manage/user"><i class="fa fa-user"></i> User Management</a></li>
-                        <li cid="category"><a href="/admin/manage/category"><i class="fa fa-reorder"></i> Category Management</a></li>
-                        <li cid="product"><a href="/admin/manage/product"><i class="fa fa-reorder"></i> Product Management</a></li>
-                        <li cid="ad"><a href="/admin/manage/ad"><i class="fa fa-reorder"></i> Ad Management</a></li>
-                        <li cid="order"><a href="/admin/manage/order"><i class="fa fa-reorder"></i> Order Management</a></li>
+                        <li cid="user"><a href="/admin/manage/user"><i class="fa fa-user"></i> 用户管理</a></li>
+                        <li cid="category"><a href="/admin/manage/category"><i class="fa fa-reorder"></i> 商品类别管理</a></li>
+                        <li cid="product"><a href="/admin/manage/product"><i class="fa fa-reorder"></i> 商品管理</a></li>
+                        <li cid="ad"><a href="/admin/manage/ad"><i class="fa fa-reorder"></i> 广告管理</a></li>
+                        <li cid="order"><a href="/admin/manage/order"><i class="fa fa-reorder"></i> 订单管理</a></li>
                     </ul>
                 </li>
             </ul><!-- /.sidebar-menu -->
@@ -139,7 +140,7 @@
     <!-- Main Footer -->
     <footer class="main-footer">
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 <a href="<%= curDomain %>/" target="_blank"><b>Ishop</b>.com</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2016 /<b>网上商城</b></a></strong> 版权所有
     </footer>
 
 </div><!-- ./wrapper -->

@@ -38,29 +38,6 @@
                 <div class="productPrice" >¥{{productItem.price}}</div>
             </div>
         </div>
-        <!--<div class="products">-->
-            <!--<div class="product" ng-repeat="item in products track by $index">-->
-                <!--<div class="image-lg pull-left">-->
-                    <!--<img src="{{item.logo}}" />-->
-                <!--</div>-->
-                <!--<div class="image-sm pull-left">-->
-                    <!--<img src="{{img}}" ng-repeat="img in item.images track by $index">-->
-                <!--</div>-->
-                <!--<div class="">-->
-                    <!--<div class="text pull-left">-->
-                        <!--<a href="/product/{{item.product_id}}" ng-if="!item.default">{{item.name}}</a>-->
-                        <!--<a href="#" ng-if="item.default">{{item.name}}</a>-->
-                    <!--</div>-->
-                    <!--<div class="list pull-left" ng-show="!item.default">-->
-                        <!--<ul class="nav">-->
-                            <!--<li><a>{{item.nSaled}} sale</a></li>-->
-                            <!--<li><a class="text-danger">{{item.price | currency: '$'}}</a></li>-->
-                            <!--<li><a class="btn" ng-click="buyItNow(item)">Buy It Now</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>&lt;!&ndash; End product &ndash;&gt;-->
-        <!--</div>&lt;!&ndash; End products &ndash;&gt;-->
     </div><!-- End hot-product -->
 </div><!-- End container -->
 
@@ -118,28 +95,7 @@
 
     $scope.load();
 
-//    $scope.buyItNow = function (item) {
-//        var shop = {
-//            shop: {
-//                _id: item.shop._id,
-//                shop_owner_id: item.shop_owner_id,
-//                shop_owner_username: item.shop.username
-//            },
-//            products: [{
-//                _id: item._id,
-//                quantity: 1,
-//                price: item.price
-//            }],
-//            total: item.price
-//        };
-//        angularHttpPut($http, '/api/v1/order', { shops: [shop] }, function (data) {
-//            if (data === 'success') {
-//                window.location = '/user/manage/confirm_order';
-//            } else {
-//                window.location = '/user/login';
-//            }
-//        });
-//    };
+
     });
 
 </script>

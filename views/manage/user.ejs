@@ -2,7 +2,7 @@
     <% include public/modal %>
     <div class="col-xs-12">
         <div class="panel">
-            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> New User</a>
+            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> 新增用户</a>
             <% include public/tableTool %>
             <div class="pull-right">
                 <% include public/searchBox %>
@@ -13,10 +13,10 @@
                 <table class="table table-hover">
                     <tr>
                         <th><input type="checkbox" class="mini" id="selectAll"/></th>
-                        <th>Username</th>
-                        <th>Phone</th>
-                        <th>Create-date</th>
-                        <th>Operation</th>
+                        <th>用户名</th>
+                        <th>电话</th>
+                        <th>创建日期</th>
+                        <th>操作</th>
                     </tr>
                     <tr class="datalist" ng-repeat="user in data">
                         <td><input type="checkbox" name="listItem" class="mini" value="{{user._id}}" ng-click="getNewIds()"/></td>
@@ -24,8 +24,8 @@
                         <td class=" ">{{user.phone}}</td>
                         <td class=" ">{{user.created | date : "yyyy-MM-dd HH:mm:ss"}}</td>
                         <td class=" ">
-                            <button class="btn btn-primary btn-xs" data-whatever="{{user._id}}" data-toggle="modal" data-target="#addNewAdminUser"><span class="fa fa-fw fa-edit" aria-hidden="true"></span>Edit</button>&nbsp;
-                            <button class="btn btn-danger btn-xs" ng-click="delOneItem(user._id)"><span class="fa fa-fw fa-trash-o" aria-hidden="true"></span>Delete</button>
+                            <button class="btn btn-primary btn-xs" data-whatever="{{user._id}}" data-toggle="modal" data-target="#addNewAdminUser"><span class="fa fa-fw fa-edit" aria-hidden="true"></span>修改</button>&nbsp;
+                            <button class="btn btn-danger btn-xs" ng-click="delOneItem(user._id)"><span class="fa fa-fw fa-trash-o" aria-hidden="true"></span>删除</button>
                         </td>
                     </tr>
                 </table>
@@ -48,46 +48,46 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">New/Edit User</h4>
+                    <h4 class="modal-title">新增/修改 用户</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form" class="form-horizontal" name="myForm" ng-submit="processForm(myForm.$valid)" novalidate>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Username</label>
+                            <label class="control-label col-sm-4">用户名</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="input-username" name="name" ng-model="formData.name" ng-pattern="/^[a-zA-Z][a-zA-Z0-9_]{3,11}$/" required/>
-                                <label for="inputError" class="control-label text-danger" ng-show="myForm.name.$invalid && !myForm.name.$pristine"><i class="fa fa-times-circle-o"></i> 4-12 letters</label>
+                                <label for="inputError" class="control-label text-danger" ng-show="myForm.name.$invalid && !myForm.name.$pristine"><i class="fa fa-times-circle-o"></i> 4-12 个字母</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Password</label>
+                            <label class="control-label col-sm-4">密码</label>
                             <div class="col-sm-6">
                                 <input type="password" class="form-control" name="password" ng-minlength="4" ng-maxlength="18" ng-pattern="/^[a-zA-Z0-9]{4,18}$/" ng-model="formData.password" required/>
-                                <label for="inputError" class="control-label text-danger" ng-show="myForm.password.$invalid && !myForm.password.$pristine"><i class="fa fa-times-circle-o"></i>4-18, only letters and numbers</label>
+                                <label for="inputError" class="control-label text-danger" ng-show="myForm.password.$invalid && !myForm.password.$pristine"><i class="fa fa-times-circle-o"></i>4-18 个字母或数字</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Confirm</label>
+                            <label class="control-label col-sm-4">确认密码</label>
                             <div class="col-sm-6">
                                 <input type="password" class="form-control" name="confirmPassword" ng-model="formData.confirmPassword" ng-minlength="4" ng-maxlength="18" ng-pattern="/^[a-zA-Z0-9]{4,18}$/" required/>
-                                <label for="inputError" class="control-label text-danger" ng-show="myForm.confirmPassword.$invalid && !myForm.confirmPassword.$pristine"><i class="fa fa-times-circle-o"></i> Two password is not same.</label>
+                                <label for="inputError" class="control-label text-danger" ng-show="myForm.confirmPassword.$invalid && !myForm.confirmPassword.$pristine"><i class="fa fa-times-circle-o"></i> 两次密码不一致</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Phone</label>
+                            <label class="control-label col-sm-4">电话</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" name="phone" ng-model="formData.phone" ng-pattern="/^[0-9]{7,11}$/" required/>
-                                <label for="inputError" class="control-label text-danger" ng-show="myForm.phone.$invalid && !myForm.phone.$pristine"><i class="fa fa-times-circle-o"></i> e.g. 12345678</label>
+                                <label for="inputError" class="control-label text-danger" ng-show="myForm.phone.$invalid && !myForm.phone.$pristine"><i class="fa fa-times-circle-o"></i> 例如： 12345678</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Address</label>
+                            <label class="control-label col-sm-4">地址</label>
                             <div class="col-sm-6">
                                 <textarea name="address" ng-model="formData.address" ng-minlength="0" ng-maxlength="30" id="" cols="30" rows="2" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Submit</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">提交</button>
                         </div>
                     </form>
                 </div><!-- /.modal-body -->
@@ -106,7 +106,7 @@
         initPagination( $scope, $http, $scope.object_type, "<%=searchKey%>" );
 
         //删除用户
-        initDelOption( $scope, $http, $scope.object_type, "<%=searchKey%>", 'Are you sure you want to delete the selected administrator? ' );
+        initDelOption( $scope, $http, $scope.object_type, "<%=searchKey%>", '您确定要删除选定的用户？ ' );
 
         // 修改用户
         $('#addNewAdminUser').on( 'show.bs.modal', function ( event ) {

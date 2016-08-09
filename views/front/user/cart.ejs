@@ -11,11 +11,11 @@
                         <tbody>
                         <tr>
                             <th><input type="checkbox" class="mini" id="" ng-model="isCheckAll" ng-click="checkAll()"/></th>
-                            <th>Commodity</th>
-                            <th>UnitPrice</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Operation</th>
+                            <th>商品</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>总价</th>
+                            <th>操作</th>
                         </tr>
                         </tbody>
                         <tbody>
@@ -39,16 +39,16 @@
                             </td>
                             <td class="text-danger">{{item.price * item.quantity | currency: '¥'}}</td>
                             <td>
-                                <button class="btn btn-danger btn-xs" ng-click="deleteItems(item._id)"><span class="fa fa-fw fa-remove" aria-hidden="true"></span>Delete</button>
+                                <button class="btn btn-danger btn-xs" ng-click="deleteItems(item._id)"><span class="fa fa-fw fa-remove" aria-hidden="true"></span>删除</button>
                             </td>
                         </tr>
                         </tbody>
                         <tbody>
                         <tr>
                             <td></td>
-                            <td class="text-right h4">Selected: </td>
+                            <td class="text-right h4">选中: </td>
                             <td class="text-danger h4">{{totalItems}}</td>
-                            <td class="text-right h4">Total:</td>
+                            <td class="text-right h4">总价:</td>
                             <td class="text-danger h4"><b>{{total | currency: '$'}}</b></td>
                             <td></td>
                         </tr>
@@ -57,8 +57,8 @@
                 </div>
             </div><!-- End div.box -->
             <div class="panel panel-info">
-                <button class="btn btn-danger btn-sm" ng-click="deleteItems()"><span class="fa fa-fw fa-remove" aria-hidden="true"></span> Delete</button>
-                <button class="btn btn-primary btn-sm pull-right" ng-disabled="!totalItems" ng-click="checkout()"><span class="fa fa-fw fa-check" aria-hidden="true"></span> Checkout</button>
+                <!--<button class="btn btn-danger btn-sm" ng-click="deleteItems()"><span class="fa fa-fw fa-remove" aria-hidden="true"></span> 删除</button>-->
+                <button class="btn btn-primary btn-sm pull-right" ng-disabled="!totalItems" ng-click="checkout()"><span class="fa fa-fw fa-check" aria-hidden="true"></span> 结账</button>
             </div>
         </div>
     </div>

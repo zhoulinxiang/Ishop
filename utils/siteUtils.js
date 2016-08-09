@@ -12,10 +12,7 @@ var settings = require('../models/db/settings'),
     Ad = require('../models/Ad'),
     util=require("util");
 
-var _IndexCategory = [
-    { name: 'Home', url: '/', childs: [] },
-    { name: 'Commodity', url: '/search', childs: [] },
-];
+
 var SiteUtils = {
 
     // 设置cookie
@@ -38,7 +35,6 @@ var SiteUtils = {
         //console.log(SiteUtils.getCategory());
         return {
             siteConfig: SiteUtils.getSiteInfo( ),
-            category: _IndexCategory,
             AD_LIMIT: settings.AD_LIMIT,
             userInfo: req.session.user,
             logined: req.session.logined,
@@ -51,7 +47,6 @@ var SiteUtils = {
         return {
             categoryPage:category,
             siteConfig: SiteUtils.getSiteInfo( ),
-            category: _IndexCategory,
             AD_LIMIT: settings.AD_LIMIT,
             userInfo: req.session.user,
             logined: req.session.logined,
@@ -62,7 +57,6 @@ var SiteUtils = {
         return {
             siteConfig: SiteUtils.getSiteInfo(),
             productId: id,
-            category: _IndexCategory,
             userInfo: req.session.user,
             logined: req.session.logined,
             title: title,
@@ -71,24 +65,11 @@ var SiteUtils = {
     },
 
 
-    getData4Search: function ( req, res, stype, keyword, title ) {
-        return {
-            siteConfig: SiteUtils.getSiteInfo(),
-            stype: stype,
-            keyword: keyword,
-            category: _IndexCategory,
-            userInfo: req.session.user,
-            logined: req.session.logined,
-            title: title,
-            layout: 'front/public/defaultTpl'
-        };
-    },
 
     getData4Customer: function ( req, res, title ) {
         return {
             siteConfig: SiteUtils.getSiteInfo( ),
             title: title,
-            category: _IndexCategory,
             userInfo: req.session.user,
             logined: req.session.logined,
             home: '/user/manage/',

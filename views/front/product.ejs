@@ -13,7 +13,7 @@
                 <form class="form-horizontal" name="buyForm" ng-submit="processBuyForm($buyForm.$valid)">
                     <div class="" style="background-color:#f3f5f7;">
                         <div class="form-group col-sm-6">
-                            <label class="col-sm-4 control-label">Price: </label>
+                            <label class="col-sm-4 control-label">价格: </label>
                             <div class="col-sm-8">
                                 <p class="form-control-static" style="color:#c13333;font-weight:bold;">{{productData.price | currency: '$'}}</p>
                             </div>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="form-group col-sm-6">
-                            <label class="col-sm-4 control-label">Quantity: </label>
+                            <label class="col-sm-4 control-label">数量: </label>
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-btn">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group col-sm-6">
                             <div class="col-sm-10">
-                                <p class="form-control-static"> Storage: {{productData.amount}}</p>
+                                <p class="form-control-static"> 库存: {{productData.amount}}</p>
                             </div>
                         </div>
 
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Payment: </label>
+                            <label class="col-sm-2 control-label">支付方式: </label>
                             <div class="col-sm-10">
                                 <p class="form-control-static">
                                     <i class="fa fa-paypal"></i>
@@ -64,7 +64,7 @@
                         <div class="form-group">
 
                             <div class="col-sm-4 col-sm-offset-8">
-                                <button class="form-control btn btn-primary"  ng-click="add2cart()">Add to Cart</button>
+                                <button class="form-control btn btn-primary"  ng-click="add2cart()">加入购物车</button>
                             </div>
                         </div>
                     </div>
@@ -76,8 +76,8 @@
         <div class="tab">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#pContent" aria-controls="pContent" role="tab" data-toggle="tab">Content</a></li>
-                <li role="presentation"><a href="#pComment" aria-controls="pComment" role="tab" data-toggle="tab">Comment <span class="badge">{{totalItems}}</span></a></li>
+                <li role="presentation" class="active"><a href="#pContent" aria-controls="pContent" role="tab" data-toggle="tab">内容</a></li>
+                <li role="presentation"><a href="#pComment" aria-controls="pComment" role="tab" data-toggle="tab">评论 <span class="badge">{{totalItems}}</span></a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -85,10 +85,10 @@
                 <div role="tabpanel" class="tab-pane active" id="pContent">
                     <div></div>
                     <div class="content">
-                        <h3>Product Details:</h3>
+                        <h3>商品详细信息:</h3>
                         <ul class="fa-ul">
-                            <li><i class="fa-li fa fa-location-arrow"></i> Name: <strong>{{productData.name}}</strong></li>
-                            <li><i class="fa-li fa fa-location-arrow"></i> Description: {{productData.describe}}</li>
+                            <li><i class="fa-li fa fa-location-arrow"></i> 商品名: <strong>{{productData.name}}</strong></li>
+                            <li><i class="fa-li fa fa-location-arrow"></i> 商品描述: {{productData.describe}}</li>
                         </ul>
                     </div>
                 </div>
@@ -98,26 +98,10 @@
                         <div>
                             <input class="star-rating productRating" type="number" readonly="true" class="rating" min=0 max=5 step=0.5 />
                         </div>
-                        <h2>{{starData.count}} Rating</h2>
+                        <h2>{{starData.count}} 星级</h2>
                     </div>
                     <div class="col-md-8">
-                        <legend>Comments</legend>
-                        <div class="comment col-md-12" ng-repeat="item in data" on-finish-render-filters>
-                            <div class="col-md-6">
-                                <h3>{{item.title}}</h3>
-                                <p>{{item.content}}</p>
-                                <span><input class="star-rating" data-score="{{item.score}}" type="number" readonly="true" class="rating" min=0 max=5 step=0.5 data-size="xs" /></span>
-                            </div>
-                            <div class="col-md-3">
-                                <p>By <a href="#">{{item.user.username}}</a></p>
-                                <p>{{item.date | date: 'MM/dd/yyyy HH:mm:ss'}}</p>
-                                <p>Type: New</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p><a href="#">Helpful({{item.helpful}})</a></p>
-                                <p><a href="#">Unhelpful({{item.unhelpful}})</a></p>
-                            </div>
-                        </div><!-- Comment -->
+                        <legend>评论</legend>
                         <div class="box-footer">
                             <% include public/pagination %>
                         </div>
@@ -213,7 +197,7 @@
         $scope.add2cart = function () {
             angularHttpPost($http, '/api/v1/user/cart', $scope.buyData, function (result) {
                 if (result === 'success') {
-                    showSuccessInfo('Add to your cart successfully.');
+                    showSuccessInfo('加入购物车成功');
                     $("ul.cart", 'div.top').dropdown('toggle');
                 } else {
                     showErrorInfo(result);

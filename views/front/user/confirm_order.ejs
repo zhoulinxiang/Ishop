@@ -6,32 +6,32 @@
     </legend>
     <div class="tab-confirm-order">
         <ul class="nav nav-tabs hide" role="tablist">
-            <li class="active"><a href="#confirmOrder">Confirm</a></li>
-            <li class=""><a href="#payOrder">Pay</a></li>
-            <li class=""><a href="#doneOrder">Done</a></li>
+            <li class="active"><a href="#confirmOrder">确认</a></li>
+            <li class=""><a href="#payOrder">支付</a></li>
+            <li class=""><a href="#doneOrder">完成</a></li>
         </ul>
         <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
-                1. Confirm
+                1. 确认
             </div>
         </div>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="confirmOrder">
                 <div class="addressSel col-sm-12">
-                    <legend>Receiver's Address</legend>
-                            <p>Name: {{orderData.name}}</p>
-                            <p>Address: {{orderData.address}}</p>
-                            <p>Phone: {{orderData.phone}}</p>
+                    <legend>收货信息</legend>
+                            <p>收货人: {{orderData.name}}</p>
+                            <p>地址: {{orderData.address}}</p>
+                            <p>电话: {{orderData.phone}}</p>
                 </div>
                 <div class="productList col-sm-12">
-                    <legend>Confirm commodities</legend>
+                    <legend>确认订单</legend>
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
                                 <tr>
-                                    <th>Commodity</th>
-                                    <th>UnitPrice</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                                    <th>商品</th>
+                                    <th>单价</th>
+                                    <th>数量</th>
+                                    <th>总价</th>
                                 </tr>
                                 <tr class="datalist" ng-repeat="item in orderData.products">
                                     <td>
@@ -46,9 +46,9 @@
                         </div>
                 </div>
                 <div class="summary col-sm-12">
-                    <h3 class="text-right text-danger">Total: <b>{{orderData.total | currency: '$'}}</b></h3>
-                    <a class="btn btn-primary btn-lg pull-right" href="#" ng-click="confirmOrder()">Submit Order</a>
-                    <a class="btn btn-lg pull-right" href="/user/manage/cart">Back to Cart</a>
+                    <h3 class="text-right text-danger">总价: <b>{{orderData.total | currency: '$'}}</b></h3>
+                    <a class="btn btn-primary btn-lg pull-right" href="#" ng-click="confirmOrder()">提交订单</a>
+                    <a class="btn btn-lg pull-right" href="/user/manage/cart">回到购物车</a>
                 </div>
             </div>
 
@@ -70,10 +70,10 @@
                 </form>
             </div>
             <div role="tabpanel" class="tab-pane" id="doneOrder">
-                <h1 class="text-success text-center">Success! <small>Your order has paid, waiting the seller shipping.</small></h1>
+                <h1 class="text-success text-center">成功! <small>您的订单支付成功等待发货。</small></h1>
                 <div class="text-center">
-                    <a class="btn btn-lg" href="/user/manage/order">Back to my order</a>
-                    <a class="btn btn-lg" href="/search">Countinue to go shoppping...</a>
+                    <a class="btn btn-lg" href="/user/manage/order">查看订单信息</a>
+                    <a class="btn btn-lg" href="/">继续购物</a>
                 </div>
             </div>
         </div>

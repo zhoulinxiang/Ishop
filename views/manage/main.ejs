@@ -1,61 +1,18 @@
 <div class="row" ng-controller="mainPanel">
     <div class="col-md-12">
         <div class="col-md-6">
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <i class="fa fa-fw fa-pie-chart"></i>
-                    <h3 class="box-title">Site Profile</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body" id="site-pie">
-                    <!-- d3-pie-chart -->
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- ./col -->
-        <div class="col-md-6">
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <i class="fa fa-fw fa-bar-chart"></i>
-                    <h3 class="box-title">Income Profile</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body" id="income-bar">
-                    <div id="income-barChart"></div>
-                    <!-- d3-bar-chart -->
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- ./col -->
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
             <div class="box box-solid"  style="margin-bottom: 0;">
                 <div class="box-header with-border">
                     <i class="fa fa-location-arrow"></i>
-                    <h3 class="box-title">Quick Start</h3>
+                    <h3 class="box-title">快速开始</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <ul class="list-unstyled" style="font-size: 1.2em;">
-                        <li><a href="/admin/manage/users/"><i class="fa fa-fw fa-male"></i> UserManagement</a></li>
-                        <li><a href="/admin/manage/category"><i class="fa fa-fw fa-user"></i> CategoryManagement</a></li>
-                        <li><a href="/admin/manage/product"><i class="fa fa-fw fa-list"></i> ProductManagement</a></li>
-                        <li><a href="/admin/manage/ad"><i class="fa fa-fw fa-dollar"></i> AdManagement</a></li>
-                        <li><a href="/admin/manage/order"><i class="fa fa-fw fa-money"></i>OrderManagement</a></li>
-                    </ul>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- ./col -->
-        <div class="col-md-6">
-            <div class="box box-solid" style="margin-bottom: 0;">
-                <div class="box-header with-border">
-                    <i class="fa fa-fw fa-calendar-o"></i>
-                    <h3 class="box-title">System Logs</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <ul class="list-unstyled">
-                        <li>
-                            <div ng-repeat="syslog in systemLog">
-                                <small class="pull-right">{{syslog.date | date : "yy-MM-dd HH:mm:ss"}}</small>
-                                <p>{{syslog.log}}</p>
-                            </div>
-                        </li>
+                        <li><a href="/admin/manage/user/"><i class="fa fa-fw fa-male"></i> 用户管理</a></li>
+                        <li><a href="/admin/manage/category"><i class="fa fa-fw fa-user"></i> 商品类别管理</a></li>
+                        <li><a href="/admin/manage/product"><i class="fa fa-fw fa-list"></i> 商品管理</a></li>
+                        <li><a href="/admin/manage/ad"><i class="fa fa-fw fa-dollar"></i> 广告管理</a></li>
+                        <li><a href="/admin/manage/order"><i class="fa fa-fw fa-money"></i>订单管理</a></li>
                     </ul>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->

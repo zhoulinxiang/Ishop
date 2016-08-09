@@ -35,7 +35,7 @@ user.business={
         //console.log(req.body);
         user.findOne( { name: req.body.name }, function ( err, userFind ) {
             if ( userFind ) {
-                res.end( userFind.name + ' was already existed.' );
+                res.end( userFind.name + ' 已经存在' );
             } else {
                 req.body.password =req.body.password;
                 Db.addOne( user, req, res, req.body.name + ' join in us.' );
@@ -71,10 +71,10 @@ user.business={
                             req.body = { password:req.body.newPwd};
                             Db.updateOneById(req.session.user._id, user, req, res);
                         } else {
-                            res.end("Twice password you entered is not same.");
+                            res.end("两次密码不一致");
                         }
                     } else {
-                        res.end("Your enter the old password is not correct.");
+                        res.end("您输入的原密码不正确");
                     }
                 } else {
                     console.log(err || 'error');

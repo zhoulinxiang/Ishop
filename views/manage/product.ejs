@@ -2,7 +2,7 @@
     <% include public/modal %>
     <div class="col-xs-12">
         <div class="panel">
-            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> New Product</a>
+            <a href="#addNewAdminUser" role="button" class="btn btn-primary btn-sm" data-toggle="modal"><span class="fa fa-plus-square" aria-hidden="true">&nbsp;</span> 新增商品</a>
             <% include public/tableTool %>
             <div class="pull-right">
                 <% include public/searchBox %>
@@ -13,11 +13,11 @@
                 <table class="table table-hover">
                     <tr>
                         <th><input type="checkbox" class="mini" id="selectAll"/></th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-                        <th>Operation</th>
+                        <th>名称</th>
+                        <th>价格</th>
+                        <th>库存</th>
+                        <th>类别</th>
+                        <th>操作</th>
                     </tr>
                     <tr class="datalist" ng-repeat="product in data">
                         <td><input type="checkbox" name="listItem" class="mini" value="{{product._id}}" ng-click="getNewIds()"/></td>
@@ -26,8 +26,8 @@
                         <td class="  sorting_1">{{product.amount}}</td>
                         <td class="  sorting_1">{{product.category}}</td>
                         <td class=" ">
-                            <button class="btn btn-primary btn-xs" data-whatever="{{product._id}}" data-toggle="modal" data-target="#addNewAdminUser"><span class="fa fa-fw fa-edit" aria-hidden="true"></span>Edit</button>&nbsp;
-                            <button class="btn btn-danger btn-xs" ng-click="delOneItem(product._id)"><span class="fa fa-fw fa-trash-o" aria-hidden="true"></span>Delete</button>
+                            <button class="btn btn-primary btn-xs" data-whatever="{{product._id}}" data-toggle="modal" data-target="#addNewAdminUser"><span class="fa fa-fw fa-edit" aria-hidden="true"></span>修改</button>&nbsp;
+                            <button class="btn btn-danger btn-xs" ng-click="delOneItem(product._id)"><span class="fa fa-fw fa-trash-o" aria-hidden="true"></span>删除</button>
                         </td>
                     </tr>
                 </table>
@@ -50,32 +50,32 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">New/Edit Product</h4>
+                    <h4 class="modal-title">新增/修改 商品</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form" class="form-horizontal" name="myForm"  method="POST" action="/admin/manage/product" enctype="multipart/form-data">
                         <input  hidden id="targetId" name="targetId" ng-model="formData._id"/>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Name</label>
+                            <label class="control-label col-sm-4">名称</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="input-username" name="name" ng-model="formData.name"  required/>
-                                <label for="inputError" class="control-label text-danger" ng-show="myForm.name.$invalid && !myForm.name.$pristine"><i class="fa fa-times-circle-o"></i> 4-12 letters</label>
+                                <label for="inputError" class="control-label text-danger" ng-show="myForm.name.$invalid && !myForm.name.$pristine"><i class="fa fa-times-circle-o"></i> 4-12 个字母或数字</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Price</label>
+                            <label class="control-label col-sm-4">价格</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="input-price" name="price" ng-model="formData.price" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Amount</label>
+                            <label class="control-label col-sm-4">库存</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="input-amount" name="amount" ng-model="formData.amount" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Category</label>
+                            <label class="control-label col-sm-4">类别</label>
                             <div class="col-sm-6">
                                 <select class="form-control" name="category" ng-model="formData.category">
                                     <option ng-repeat="categoryFind in categorys">{{categoryFind.name}}</option>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Images</label>
+                            <label class="control-label col-sm-4">图片</label>
                             <div class="col-sm-6">
                                 <input type="file" class="filestyle" name="photos" ng-model="formData.img1">
                                 <input type="file" class="filestyle" name="photos" ng-model="formData.img2">
@@ -91,13 +91,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Desribe</label>
+                            <label class="control-label col-sm-4">描述</label>
                             <div class="col-sm-6">
                                 <textarea name="describe" ng-model="formData.describe" ng-minlength="0" ng-maxlength="30" id="" cols="30" rows="2" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" >Submit</button>
+                            <button type="submit" class="btn btn-primary" >提交</button>
                         </div>
                     </form>
                 </div><!-- /.modal-body -->
@@ -119,7 +119,7 @@
         initPagination( $scope, $http, $scope.object_type, "<%=searchKey%>" );
 
         //删除商品
-        initDelOption( $scope, $http, $scope.object_type, "<%=searchKey%>", 'Are you sure you want to delete the selected item? ' );
+        initDelOption( $scope, $http, $scope.object_type, "<%=searchKey%>", '您确定要删除选中的选项? ' );
 
         // 修改商品
         $('#addNewAdminUser').on( 'show.bs.modal', function ( event ) {

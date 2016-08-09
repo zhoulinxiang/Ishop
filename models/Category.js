@@ -34,6 +34,17 @@ category.business={
         var Db = require('./db/Db');
         Db.delete(id,category,req,res);
     },
+    update: function ( id, req, res ) {
+        var Db = require('./db/Db');
+        category.findOne( { _id: id}, function ( err, productFind ) {
+            if ( err ) {
+                console.log(err);
+                res.end('error');
+            } else {
+                Db.updateOneById( id, category, req, res );
+            }
+        });
+    },
     find: function ( req, res ) {
         category.find()
             .exec(function (err, data) {

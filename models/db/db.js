@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 var db=mongoose.connect('mongodb://localhost/ishop');
 
 var Db = {
-
+    //通用的删除
     delete: function ( id, obj, req, res, logMsg) {
         obj.remove({ _id: id }, function (err, result) {
             if (err) {
@@ -19,7 +19,7 @@ var Db = {
         });
     },
 
-
+    //通用的查找一项数据记录
     findOne: function ( id, obj, req, res, logMsg) {
         obj.findOne({ _id: id }, function (err, result) {
             if (err) {
@@ -32,7 +32,7 @@ var Db = {
             }
         });
     },
-
+    //通用的更新数据记录
     updateOneById: function (id, obj, req, res, logMsg) {
         console.log(req.body);
         var update = { $set: req.body };
@@ -47,7 +47,7 @@ var Db = {
             }
         });
     },
-
+    //增加一条记录
     addOne: function (obj, req, res, logMsg) {
         //console.log(req.body);
         var newObj = new obj(req.body);
@@ -109,6 +109,7 @@ var Db = {
             }
         });
     },
+    //加密
     encrypt: function (data, key) {
         var cipher = crypto.createCipher("bf", key);
         var newPwd = '';
@@ -117,7 +118,7 @@ var Db = {
 
         return newPwd;
     },
-
+    //解密
     decrypt: function (data, key) {
         var decipher = crypto.createDecipher("bf", key);
         var oldPwd = '';

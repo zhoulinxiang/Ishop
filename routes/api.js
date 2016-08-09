@@ -45,7 +45,7 @@ router.post('/v1/user', function (req, res, next) {
     if (Auth.isLogin(req)) {
         User.business.updateByUser(req, res);
     } else {
-        res.end('Permission Denied.');
+        res.end('请先登录');
     }
 });
 
@@ -59,7 +59,7 @@ router.post('/v1/user/cart', function (req, res, next) {
     if (Auth.isLogin(req)) {
         User.business.changeCart(req, res);
     } else {
-        res.end('Permission Denied.');
+        res.end('请先登录');
     }
 });
 
@@ -73,7 +73,7 @@ router.delete('/v1/user/cart/:product_id', function (req, res, next) {
     if (Auth.isLogin(req)) {
         User.business.deleteCart(product_id, req, res);
     } else {
-        res.end('Permission Denied.');
+        res.end('请先登录');
     }
 });
 
@@ -140,20 +140,20 @@ router.get('/v1/order/:order_id?', function (req, res, next) {
 /*
  * PUT Order
  * @pre-condition: must be logined
- * @body: address(), products()
+ *
  */
 router.put('/v1/order', function (req, res, next) {
     if (Auth.isLogin(req)) {
         Order.business.insert(req, res);
     } else {
-        res.end('Permission Denied.');
+        res.end('请先登录');
     }
 });
 
 /*
  * POST Order
- * @pre-condition: must be shop_owner logined
- * @body:
+ *
+ *
  */
 router.post('/v1/order/:order_id/:operate', function (req, res, next) {
     var order_id = req.params.order_id,
@@ -161,22 +161,21 @@ router.post('/v1/order/:order_id/:operate', function (req, res, next) {
     if (Auth.isLogin(req)||Auth.isAdminLogin(req)) {
         Order.business.update(order_id, operate, req, res);
     } else {
-        res.end('Permission Denied.');
+        res.end('请先登录');
     }
 });
 
 /*
  * DELETE Order
  * @pre-condition: must be logined
- * @customer: cancel order
- * @shop_owner: cancel order
+ *
  */
 router.delete('/v1/order/:order_id', function (req, res, next) {
     var order_id = req.params.order_id;
     if (Auth.isLogin(req)) {
         Order.business.delete(order_id, req, res);
     } else {
-        res.end('Permission Denied.');
+        res.end('请先登录');
     }
 });
 
@@ -184,7 +183,7 @@ router.delete('/v1/order/:order_id', function (req, res, next) {
 /* Category Api */
 /*
  * GET Category
- * @query: shop_id
+ *
  */
 router.get('/v1/category/:cate_id?', function (req, res, next) {
     var cate_id = req.params.cate_id;
@@ -198,59 +197,13 @@ router.get('/v1/category/:cate_id?', function (req, res, next) {
     }
 });
 
-/*
- * POST Category
- * @param: *cate_id
- */
-router.post('/v1/category/:cate_id', function (req, res, next) {
-    var cate_id = req.params.cate_id;
 
-    if (Auth.isShopOwner(req)) {
-        Category.business.updateByUser(cate_id, req, res);
-    } else {
-        res.end('Permission Denied.');
-    }
-});
-
-/*
- * PUT Category
- */
-router.put('/v1/category', function (req, res, next) {
-    if (Auth.isShopOwner(req)) {
-        Category.business.insertByUser(req, res);
-    } else {
-        res.end('Permission Denied.');
-    }
-});
-
-/*
- * DELETE Category
- * @param: cate_id
- */
-router.delete('/v1/category/:cate_id', function (req, res, next) {
-    var cate_id = req.params.cate_id;
-
-    if (Auth.isShopOwner(req)) {
-        Category.business.delete(cate_id, req, res);
-    } else {
-        res.end('Permission Denied.');
-    }
-});
 
 /* Ad Api */
 /*
  * GET ads
  * @param: ad_id
  */
-router.get('/v1/ad/:ad_id?', function (req, res, next) {
-    var ad_id = req.params.ad_id;
-
-    if (ad_id) {
-        Ad.business.findOne(ad_id, req, res);
-    } else {
-        Ad.business.query(req, res);
-    }
-});
 
 router.get('/v1/index/ad', function (req, res, next) {
     Ad.business.find(req, res);
@@ -279,7 +232,7 @@ router.put('/v1/comment', function (req, res, next) {
     if (Auth.isLogin(req)) {
         Comment.business.insert(req, res);
     } else {
-        res.end('Permission Denied');
+        res.end('请先登录');
     }
 });
 
@@ -292,7 +245,7 @@ router.post('/v1/comment/:comment_id', function (req, res, next) {
     if (Auth.isLogin(req)) {
         Comment.business.update(comment_id, req, res);
     } else {
-        res.end('Permission Denied');
+        res.end('请先登录');
     }
 });
 
@@ -305,7 +258,7 @@ router.delete('/v1/comment/:comment_id', function (req, res, next) {
     if (Auth.isLogin(req)) {
         Comment.business.delete(comment_id, req, res);
     } else {
-        res.end('Permission Denied');
+        res.end('请先登录');
     }
 });
 

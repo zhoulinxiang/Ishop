@@ -66,8 +66,6 @@ app.use(function (req, res, next) {
     // for Administrator
     res.locals.adminlogined = req.session.adminlogined;
     res.locals.adminUserInfo = req.session.adminUserInfo;
-    // for domain
-    res.locals.curDomain = req.headers.host;
 
     next();
 });
